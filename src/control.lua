@@ -14,8 +14,8 @@ event.on_init(function()
   gui.init()
 
   global_data.init()
-  for i, player in pairs(game.players) do
-
+  for i in pairs(game.players) do
+    player_data.init(i)
   end
 
   gui.build_lookup_tables()
@@ -36,6 +36,20 @@ end)
 -- GUI
 
 gui.register_handlers()
+
+-- INPUTS
+
+event.register({"ct-scroll-items-1-up", "ct-scroll-items-1-down"}, function(e)
+  __DebugAdapter.print(e)
+end)
+
+event.register({"ct-scroll-items-2-up", "ct-scroll-items-2-down"}, function(e)
+  __DebugAdapter.print(e)
+end)
+
+event.register({"ct-scroll-history-up", "ct-scroll-history-down"}, function(e)
+  __DebugAdapter.print(e)
+end)
 
 -- PLAYER
 
