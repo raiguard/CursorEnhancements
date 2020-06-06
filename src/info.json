@@ -1,0 +1,9 @@
+{
+  "name": "CursorTools",
+  "version": "1.0.0",
+  "title": "Cursor Tools",
+  "author": "raiguard",
+  "factorio_version": "0.18",
+  "dependencies": ["base >= 0.18.30", "flib >= 0.1.0"],
+  "description": "Access related items with custom paths, scroll through your cursor history, and more!"
+}
