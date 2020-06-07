@@ -58,16 +58,16 @@ end)
 -- INPUTS
 
 event.register(constants.item_scroll_input_names, function(e)
-  local _, _, list_index, direction = string.find(e.input_name, "^ct%-scroll%-items%-(%d)%-(%w*)$")
+  local _, _, list_index, direction = string.find(e.input_name, "^cen-%-scroll%-items%-(%d)%-(%w*)$")
   cursor.scroll(e.player_index, tonumber(list_index), direction)
 end)
 
-event.register("ct-recall-last-item", function(e)
+event.register("cen-recall-last-item", function(e)
   local player = game.get_player(e.player_index)
   local player_table = global.players[e.player_index]
   if player_table.last_item then
     if not cursor.set_stack(player, player.cursor_stack, player_table, player_table.last_item) then
-      player.print{"ct-message.unable-to-recall"}
+      player.print{"cen-message.unable-to-recall"}
     end
   end
 end)
@@ -130,7 +130,7 @@ end)
 -- SETTINGS
 
 event.on_runtime_mod_setting_changed(function(e)
-  if string.sub(e.setting, 1, 3) == "ct-" and e.setting_type == "runtime-per-user" then
+  if string.sub(e.setting, 1, 3) == "cen-" and e.setting_type == "runtime-per-user" then
     player_data.update_settings(game.get_player(e.player_index), global.players[e.player_index])
   end
 end)
