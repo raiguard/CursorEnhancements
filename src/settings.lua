@@ -8,16 +8,9 @@ data:extend{
   },
   {
     type = "bool-setting",
-    name = "ct-replace-depleted-item-with-ghost",
+    name = "ct-seamless-ghost-cursor-transitions",
     setting_type = "runtime-per-user",
     default_value = true,
     order = "b"
-  },
-  {
-    type = "bool-setting",
-    name = "ct-replace-ghost-with-retrieved-item",
-    setting_type = "runtime-per-user",
-    default_value = true,
-    order = "c"
   }
 }

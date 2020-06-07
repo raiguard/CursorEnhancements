@@ -93,7 +93,7 @@ event.on_player_cursor_stack_changed(function(e)
   if current_item then
     player_table.last_item = current_item
   elseif
-    player_table.settings.replace_depleted_item_with_ghost
+    player_table.settings.seamless_ghost_cursor_transitions
     and not player_table.flags.gui_open
     and not player.cursor_ghost
   then
@@ -114,7 +114,7 @@ event.on_player_main_inventory_changed(function(e)
   local player = game.get_player(e.player_index)
   local player_table = global.players[e.player_index]
 
-  if player_table.settings.replace_ghost_with_retrieved_item then
+  if player_table.settings.seamless_ghost_cursor_transitions then
     local cursor_ghost = player.cursor_ghost
 
     if cursor_ghost then
