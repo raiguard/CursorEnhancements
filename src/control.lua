@@ -45,6 +45,16 @@ end)
 
 gui.register_handlers()
 
+event.on_gui_opened(function(e)
+  global.players[e.player_index].flags.gui_open = true
+  gui.dispatch_handlers(e)
+end)
+
+event.on_gui_closed(function(e)
+  global.players[e.player_index].flags.gui_open = false
+  gui.dispatch_handlers(e)
+end)
+
 -- INPUTS
 
 event.register(constants.item_scroll_input_names, function(e)
@@ -74,30 +84,36 @@ event.on_player_removed(function(e)
   global.players[e.player_index] = nil
 end)
 
-event.on_player_pipette(function(e)
-  local player = game.get_player(e.player_index)
-  local player_table = global.players[e.player_index]
-  local cursor_ghost = player.cursor_ghost
-
-  if cursor_ghost then
-    local possible_items = game.entity_prototypes[cursor_ghost.name].items_to_place_this
-    if possible_items then
-      player_table.ghost_item = possible_items[1].name
-    end
-  end
-end)
-
 event.on_player_cursor_stack_changed(function(e)
   local player = game.get_player(e.player_index)
   local player_table = global.players[e.player_index]
   local cursor_stack = player.cursor_stack
   local current_item = cursor_stack and cursor_stack.valid_for_read and cursor_stack.name
-  local ghost_item = player_table.ghost_item
 
   if current_item then
-    if ghost_item and current_item ~= ghost_item then
-      player_table.ghost_item = nil
-    end
     player_table.last_item = current_item
+  elseif
+    player_table.settings.replace_depleted_item_with_ghost
+    and not player_table.flags.gui_open
+    and not player.cursor_ghost
+  then
+    local last_item = player_table.last_item
+    if last_item then
+      player_data.ensure_valid_inventory(player, player_table)
+      if player_table.main_inventory.get_item_count(last_item) == 0 then
+        local entity = game.item_prototypes[last_item].place_result
+        if entity then
+          player.cursor_ghost = last_item
+        end
+      end
+    end
+  end
+end)
+
+-- SETTINGS
+
+event.on_runtime_mod_setting_changed(function(e)
+  if string.sub(e.setting, 1, 3) == "ct-" and e.setting_type == "runtime-per-user" then
+    player_data.update_settings(game.get_player(e.player_index), global.players[e.player_index])
   end
 end)

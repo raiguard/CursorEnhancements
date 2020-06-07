@@ -6,10 +6,10 @@ function player_data.init(player_index)
   local player = game.get_player(player_index)
   global.players[player_index] = {
     flags = {
-      gui_open = false
+      gui_open = false,
+      holding_item = false
     },
-    ghost_item = nil,
-    gui = {},
+    -- gui = {},
     item_sets = {
       --! HARDCODED DEFAULTS FOR NOW
       [1] = {
@@ -40,6 +40,12 @@ end
 
 function player_data.refresh(player, player_table)
   player_data.update_settings(player, player_table)
+end
+
+function player_data.ensure_valid_inventory(player, player_table)
+  if not player_table.main_inventory.valid then
+    player_table.main_inventory = player.get_main_inventory()
+  end
 end
 
 return player_data
