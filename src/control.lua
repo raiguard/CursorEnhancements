@@ -103,7 +103,7 @@ event.on_player_cursor_stack_changed(function(e)
       if player_table.main_inventory.get_item_count(last_item) == 0 then
         local entity = game.item_prototypes[last_item].place_result
         if entity then
-          player.cursor_ghost = last_item
+          cursor.set_stack(player, cursor_stack, player_table, last_item)
         end
       end
     end
