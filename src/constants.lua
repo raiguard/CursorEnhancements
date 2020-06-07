@@ -9,7 +9,8 @@ constants.item_scroll_input_names = {
 
 constants.setting_name_mapping = {
   ["ct-spawn-items-when-cheating"] = "spawn_items_when_cheating",
-  ["ct-replace-depleted-item-with-ghost"] = "replace_depleted_item_with_ghost"
+  ["ct-replace-depleted-item-with-ghost"] = "replace_depleted_item_with_ghost",
+  ["ct-replace-ghost-with-retrieved-item"] = "replace_ghost_with_retrieved_item"
 }
 
 return constants

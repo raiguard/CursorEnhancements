@@ -12,5 +12,12 @@ data:extend{
     setting_type = "runtime-per-user",
     default_value = true,
     order = "b"
+  },
+  {
+    type = "bool-setting",
+    name = "ct-replace-ghost-with-retrieved-item",
+    setting_type = "runtime-per-user",
+    default_value = true,
+    order = "c"
   }
 }

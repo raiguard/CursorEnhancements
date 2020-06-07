@@ -110,6 +110,23 @@ event.on_player_cursor_stack_changed(function(e)
   end
 end)
 
+event.on_player_main_inventory_changed(function(e)
+  local player = game.get_player(e.player_index)
+  local player_table = global.players[e.player_index]
+
+  if player_table.settings.replace_ghost_with_retrieved_item then
+    local cursor_ghost = player.cursor_ghost
+
+    if cursor_ghost then
+      player_data.ensure_valid_inventory(player, player_table)
+      local main_inventory = player_table.main_inventory
+      if main_inventory.get_item_count(cursor_ghost.name) > 0 then
+        cursor.set_stack(player, player.cursor_stack, player_table, cursor_ghost.name)
+      end
+    end
+  end
+end)
+
 -- SETTINGS
 
 event.on_runtime_mod_setting_changed(function(e)
