@@ -16,13 +16,8 @@ data:extend{
   },
   {
     type = "custom-input",
-    name = "ct-scroll-history-next",
-    key_sequence = "ALT + mouse-wheel-up"
-  },
-  {
-    type = "custom-input",
-    name = "ct-scroll-history-previous",
-    key_sequence = "ALT + mouse-wheel-down"
+    name = "ct-recall-last-item",
+    key_sequence = "SHIFT + C"
   },
   {
     type = "custom-input",

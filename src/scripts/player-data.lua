@@ -22,9 +22,9 @@ function player_data.init(player_index)
         {"transport-belt", "underground-belt", "splitter", "loader"},
         {"fast-transport-belt", "fast-underground-belt", "fast-splitter", "fast-loader"},
         {"express-transport-belt", "express-underground-belt", "express-splitter", "express-loader"}
-      },
-      history = {}
+      }
     },
+    last_item = nil,
     main_inventory = player.get_main_inventory(),
     settings = {}
   }

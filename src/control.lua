@@ -49,11 +49,17 @@ gui.register_handlers()
 
 event.register(constants.item_scroll_input_names, function(e)
   local _, _, list_index, direction = string.find(e.input_name, "^ct%-scroll%-items%-(%d)%-(%w*)$")
-  cursor.scroll_items(e.player_index, tonumber(list_index), direction)
+  cursor.scroll(e.player_index, tonumber(list_index), direction)
 end)
 
-event.register({"ct-scroll-history-next", "ct-scroll-history-previous"}, function(e)
-  cursor.scroll_history(e.player_index)
+event.register("ct-recall-last-item", function(e)
+  local player = game.get_player(e.player_index)
+  local player_table = global.players[e.player_index]
+  if player_table.last_item then
+    if not cursor.set_stack(player, player.cursor_stack, player_table, player_table.last_item) then
+      player.print{"ct-message.unable-to-recall"}
+    end
+  end
 end)
 
 -- PLAYER
@@ -88,7 +94,10 @@ event.on_player_cursor_stack_changed(function(e)
   local current_item = cursor_stack and cursor_stack.valid_for_read and cursor_stack.name
   local ghost_item = player_table.ghost_item
 
-  if current_item and ghost_item and current_item ~= ghost_item then
-    player_table.ghost_item = nil
+  if current_item then
+    if ghost_item and current_item ~= ghost_item then
+      player_table.ghost_item = nil
+    end
+    player_table.last_item = current_item
   end
 end)
