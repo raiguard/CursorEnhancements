@@ -4,6 +4,7 @@ local migration = require("__flib__.migration")
 
 local constants = require("constants")
 
+local cen_gui = require("scripts.gui")
 local cursor = require("scripts.cursor")
 local global_data = require("scripts.global-data")
 local local_data = require("scripts.local-data")
@@ -16,15 +17,16 @@ local player_data = require("scripts.player-data")
 
 event.on_init(function()
   gui.init()
+  gui.build_lookup_tables()
 
   global_data.init()
   for i, player in pairs(game.players) do
     player_data.init(i)
-    player_data.refresh(player, global.players[i])
+    local player_table = global.players[i]
+    player_data.refresh(player, player_table)
+    local_data.generate(i)
+    cen_gui.create(player, player_table)
   end
-  local_data.generate()
-
-  gui.build_lookup_tables()
 end)
 
 event.on_load(function()
@@ -55,6 +57,12 @@ event.on_gui_closed(function(e)
   gui.dispatch_handlers(e)
 end)
 
+event.register({"cen-toggle-config-gui", defines.events.on_lua_shortcut}, function(e)
+  if e.input_name or (e.prototype_name == "cen-toggle-config-gui") then
+    cen_gui.toggle(game.get_player(e.player_index), global.players[e.player_index])
+  end
+end)
+
 -- INPUTS
 
 event.register(constants.item_scroll_input_names, function(e)
@@ -76,8 +84,11 @@ end)
 
 event.on_player_created(function(e)
   player_data.init(e.player_index)
-  player_data.refresh(game.get_player(e.player_index), global.players[e.player_index])
+  local player = game.get_player(e.player_index)
+  local player_table = global.players[e.player_index]
+  player_data.refresh(player, player_table)
   local_data.generate(e.player_index)
+  cen_gui.create(player, player_table)
 end)
 
 event.on_player_removed(function(e)

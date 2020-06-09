@@ -6,10 +6,11 @@ function player_data.init(player_index)
   local player = game.get_player(player_index)
   global.players[player_index] = {
     flags = {
+      config_gui_open = false,
       gui_open = false,
       holding_item = false
     },
-    -- gui = {},
+    gui = nil,
     item_sets = {
       --! HARDCODED DEFAULTS FOR NOW
       [1] = {

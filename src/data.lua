@@ -7,7 +7,8 @@ data:extend{
       filename = "__core__/graphics/icons/category/scripting-editor.png",
       size = 128,
       mipmap_count = 2
-    }
+    },
+    toggleable = true
   },
   {
     type = "custom-input",
@@ -40,3 +41,5 @@ data:extend{
     key_sequence = "CONTROL + mouse-wheel-down"
   }
 }
+
+require("prototypes.style")
