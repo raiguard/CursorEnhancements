@@ -5,29 +5,26 @@ local local_data = {}
 local function generate_internal(player_index, player_table)
   local_data[player_index] = {}
 
-  for i = 1, 2 do
+  for type, group in pairs(player_table.item_sets) do
     local output = {}
-    local parent_set = player_table.item_sets[i]
-
-    for _, set in ipairs(parent_set) do
+    for _, set in ipairs(group) do
       -- iterate over set until we reach the end
       local previous
       local current = set[1]
       local next = set[2]
-      local j = 1
+      local i = 1
       while current do
         output[current] = {
           previous = previous,
           next = next
         }
-        j = j + 1
+        i = i + 1
         previous = current
-        current = set[j]
-        next = set[j + 1]
+        current = set[i]
+        next = set[i + 1]
       end
+      local_data[player_index][type] = output
     end
-
-    local_data[player_index][i] = output
   end
 end
 

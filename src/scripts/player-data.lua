@@ -13,13 +13,13 @@ function player_data.init(player_index)
     gui = nil,
     item_sets = {
       --! HARDCODED DEFAULTS FOR NOW
-      [1] = {
+      relatives = {
         {"transport-belt", "fast-transport-belt", "express-transport-belt"},
         {"underground-belt", "fast-underground-belt", "express-underground-belt"},
         {"splitter", "fast-splitter", "express-splitter"},
         {"loader", "fast-loader", "express-loader"}
       },
-      [2] = {
+      groups = {
         {"transport-belt", "underground-belt", "splitter", "loader"},
         {"fast-transport-belt", "fast-underground-belt", "fast-splitter", "fast-loader"},
         {"express-transport-belt", "express-underground-belt", "express-splitter", "express-loader"}

@@ -1,10 +1,8 @@
 local event = require("__flib__.event")
-local gui = require("__flib__.gui")
 local migration = require("__flib__.migration")
 
 local constants = require("constants")
 
-local cen_gui = require("scripts.gui")
 local cursor = require("scripts.cursor")
 local global_data = require("scripts.global-data")
 local local_data = require("scripts.local-data")
@@ -16,23 +14,17 @@ local player_data = require("scripts.player-data")
 -- BOOTSTRAP
 
 event.on_init(function()
-  gui.init()
-  gui.build_lookup_tables()
-
   global_data.init()
   for i, player in pairs(game.players) do
     player_data.init(i)
     local player_table = global.players[i]
     player_data.refresh(player, player_table)
     local_data.generate(i)
-    cen_gui.create(player, player_table)
   end
 end)
 
 event.on_load(function()
   local_data.generate()
-
-  gui.build_lookup_tables()
 end)
 
 event.on_configuration_changed(function(e)
@@ -45,29 +37,19 @@ end)
 
 -- GUI
 
-gui.register_handlers()
-
 event.on_gui_opened(function(e)
   global.players[e.player_index].flags.gui_open = true
-  gui.dispatch_handlers(e)
 end)
 
 event.on_gui_closed(function(e)
   global.players[e.player_index].flags.gui_open = false
-  gui.dispatch_handlers(e)
-end)
-
-event.register({"cen-toggle-config-gui", defines.events.on_lua_shortcut}, function(e)
-  if e.input_name or (e.prototype_name == "cen-toggle-config-gui") then
-    cen_gui.toggle(game.get_player(e.player_index), global.players[e.player_index])
-  end
 end)
 
 -- INPUTS
 
 event.register(constants.item_scroll_input_names, function(e)
-  local _, _, list_index, direction = string.find(e.input_name, "^cen-%-scroll%-items%-(%d)%-(%w*)$")
-  cursor.scroll(e.player_index, tonumber(list_index), direction)
+  local _, _, scroll_type, direction = string.find(e.input_name, "^cen-%-scroll%-(%a*)%-(%w*)$")
+  cursor.scroll(e.player_index, scroll_type, direction)
 end)
 
 event.register("cen-recall-last-item", function(e)
@@ -88,7 +70,6 @@ event.on_player_created(function(e)
   local player_table = global.players[e.player_index]
   player_data.refresh(player, player_table)
   local_data.generate(e.player_index)
-  cen_gui.create(player, player_table)
 end)
 
 event.on_player_removed(function(e)
@@ -104,7 +85,7 @@ event.on_player_cursor_stack_changed(function(e)
   if current_item then
     player_table.last_item = current_item
   elseif
-    player_table.settings.seamless_ghost_cursor_transitions
+    player_table.settings.ghost_cursor_transitions
     and not player_table.flags.gui_open
     and not player.cursor_ghost
   then
@@ -125,7 +106,7 @@ event.on_player_main_inventory_changed(function(e)
   local player = game.get_player(e.player_index)
   local player_table = global.players[e.player_index]
 
-  if player_table.settings.seamless_ghost_cursor_transitions then
+  if player_table.settings.ghost_cursor_transitions then
     local cursor_ghost = player.cursor_ghost
 
     if cursor_ghost then

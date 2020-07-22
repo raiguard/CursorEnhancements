@@ -39,7 +39,7 @@ function cursor.set_stack(player, cursor_stack, player_table, item_name)
   end
 end
 
-function cursor.scroll(player_index, list_index, direction)
+function cursor.scroll(player_index, scroll_type, direction)
   local player = game.get_player(player_index)
   local player_table = global.players[player_index]
   local player_local_data = local_data[player_index]
@@ -47,7 +47,7 @@ function cursor.scroll(player_index, list_index, direction)
   local current_item = cursor.check_stack(cursor_stack, player.cursor_ghost)
 
   if current_item then
-    local item_data = player_local_data[list_index][current_item]
+    local item_data = player_local_data[scroll_type][current_item]
     if item_data then
       local item_name = item_data[direction]
       if item_name then

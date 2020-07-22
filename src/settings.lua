@@ -8,7 +8,7 @@ data:extend{
   },
   {
     type = "bool-setting",
-    name = "cen-seamless-ghost-cursor-transitions",
+    name = "cen-ghost-cursor-transitions",
     setting_type = "runtime-per-user",
     default_value = true,
     order = "b"
