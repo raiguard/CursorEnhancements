@@ -3,9 +3,11 @@ local migration = require("__flib__.migration")
 
 local constants = require("constants")
 
+local api = require("scripts.api")
 local cursor = require("scripts.cursor")
 local global_data = require("scripts.global-data")
 local local_data = require("scripts.local-data")
+local migrations = require("scripts.migrations")
 local player_data = require("scripts.player-data")
 
 -- -----------------------------------------------------------------------------
@@ -28,11 +30,7 @@ event.on_load(function()
 end)
 
 event.on_configuration_changed(function(e)
-  if migration.on_config_changed(e, {}) then
-
-  else
-
-  end
+  migration.on_config_changed(e, migrations)
 end)
 
 -- GUI
@@ -55,10 +53,8 @@ end)
 event.register("cen-recall-last-item", function(e)
   local player = game.get_player(e.player_index)
   local player_table = global.players[e.player_index]
-  if player_table.last_item then
-    if not cursor.set_stack(player, player.cursor_stack, player_table, player_table.last_item) then
-      player.print{"cen-message.unable-to-recall"}
-    end
+  if player_table.last_item and not cursor.set_stack(player, player.cursor_stack, player_table, player_table.last_item) then
+    player.print{"cen-message.unable-to-recall"}
   end
 end)
 
@@ -126,3 +122,8 @@ event.on_runtime_mod_setting_changed(function(e)
     player_data.update_settings(game.get_player(e.player_index), global.players[e.player_index])
   end
 end)
+
+-- -----------------------------------------------------------------------------
+-- INTERFACE
+
+remote.add_interface("CursorEnhancements", api)

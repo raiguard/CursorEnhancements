@@ -2,7 +2,7 @@ data:extend{
   {
     type = "custom-input",
     name = "cen-recall-last-item",
-    key_sequence = "SHIFT + C"
+    key_sequence = "SHIFT + Q"
   },
   {
     type = "custom-input",
