@@ -47,6 +47,7 @@ end)
 
 event.register(constants.item_scroll_input_names, function(e)
   local _, _, scroll_type, direction = string.find(e.input_name, "^cen-%-scroll%-(%a*)%-(%w*)$")
+  local data = local_data
   cursor.scroll(e.player_index, scroll_type, direction)
 end)
 

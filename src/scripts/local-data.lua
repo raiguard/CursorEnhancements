@@ -1,39 +1,34 @@
-local local_data = {}
+local local_data = {
+  groups = {},
+  relatives = {}
+}
 
--- local util = require("__core__.lualib.util")
+local mappings = {
+  base = require("scripts.mappings.base")
+}
 
-local function generate_internal(player_index, player_table)
-  local_data[player_index] = {}
+function local_data.generate()
+  for mapping_name, mapping in pairs(mappings.base) do
+    local i = 0
+    for i = 1, #mapping do
+      local group = mapping[i]
 
-  for type, group in pairs(player_table.item_sets) do
-    local output = {}
-    for _, set in ipairs(group) do
-      -- iterate over set until we reach the end
-      local previous
-      local current = set[1]
-      local next = set[2]
-      local i = 1
-      while current do
-        output[current] = {
-          previous = previous,
-          next = next
+      -- groups
+
+
+      -- relatives
+      local relatives = local_data.relatives
+      local previous_relative
+      local current_relative = group[1]
+      local k = 1
+      while current_relative do
+        local_data.relatives[current_relative] = {
+          previous = previous_relative and previous_relative.item,
         }
-        i = i + 1
-        previous = current
-        current = set[i]
-        next = set[i + 1]
+        k = k + 1
+        previous_relative = current_relative
+        current_relative = group[k]
       end
-      local_data[player_index][type] = output
-    end
-  end
-end
-
-function local_data.generate(player_index)
-  if player_index then
-    generate_internal(player_index, global.players[player_index])
-  else
-    for i, player_table in pairs(global.players) do
-      generate_internal(i, player_table)
     end
   end
 end

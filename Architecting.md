@@ -5,3 +5,9 @@
 - Remote interface so mods can add their own mappings
 - Sets are scrolled through according to their "order" property
 - local-data translates all of the sets into a runtime-optimized version that is kept outside of global
+
+- Each mapped object has an item name and an order
+- Sorted according to their order
+- "Relatives" are scrolled with shift, and "Groups" are scrolled with control
+- When scrollilng groups, it will scroll to a relative with the same order
+  - If no such relative exists, nothing will happen (?)
