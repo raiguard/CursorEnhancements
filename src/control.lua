@@ -3,10 +3,8 @@ local migration = require("__flib__.migration")
 
 local constants = require("constants")
 
-local api = require("scripts.api")
 local cursor = require("scripts.cursor")
 local global_data = require("scripts.global-data")
-local local_data = require("scripts.local-data")
 local migrations = require("scripts.migrations")
 local player_data = require("scripts.player-data")
 
@@ -21,16 +19,17 @@ event.on_init(function()
     player_data.init(i)
     local player_table = global.players[i]
     player_data.refresh(player, player_table)
-    local_data.generate(i)
   end
 end)
 
-event.on_load(function()
-  local_data.generate()
-end)
-
 event.on_configuration_changed(function(e)
-  migration.on_config_changed(e, migrations)
+  if migration.on_config_changed(e, migrations) then
+    global_data.build_default_registry()
+
+    for i, player in pairs(game.players) do
+      player_data.refresh(player, global.players[i])
+    end
+  end
 end)
 
 -- GUI
@@ -46,9 +45,8 @@ end)
 -- INPUTS
 
 event.register(constants.item_scroll_input_names, function(e)
-  local _, _, scroll_type, direction = string.find(e.input_name, "^cen-%-scroll%-(%a*)%-(%w*)$")
-  local data = local_data
-  cursor.scroll(e.player_index, scroll_type, direction)
+  local _, _, direction = string.find(e.input_name, "^cen-%-scroll%-(%a*)$")
+  cursor.scroll(e.player_index, direction)
 end)
 
 event.register("cen-recall-last-item", function(e)
@@ -66,7 +64,6 @@ event.on_player_created(function(e)
   local player = game.get_player(e.player_index)
   local player_table = global.players[e.player_index]
   player_data.refresh(player, player_table)
-  local_data.generate(e.player_index)
 end)
 
 event.on_player_removed(function(e)
@@ -123,8 +120,3 @@ event.on_runtime_mod_setting_changed(function(e)
     player_data.update_settings(game.get_player(e.player_index), global.players[e.player_index])
   end
 end)
-
--- -----------------------------------------------------------------------------
--- INTERFACE
-
-remote.add_interface("CursorEnhancements", api)

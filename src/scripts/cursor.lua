@@ -1,6 +1,7 @@
 local cursor = {}
 
-local local_data = require("scripts.local-data")
+local constants = require("constants")
+
 local player_data = require("scripts.player-data")
 
 function cursor.check_stack(cursor_stack, cursor_ghost)
@@ -39,16 +40,16 @@ function cursor.set_stack(player, cursor_stack, player_table, item_name)
   end
 end
 
-function cursor.scroll(player_index, scroll_type, direction)
+function cursor.scroll(player_index, direction)
   local player = game.get_player(player_index)
   local player_table = global.players[player_index]
   local cursor_stack = player.cursor_stack
   local current_item = cursor.check_stack(cursor_stack, player.cursor_ghost)
 
   if current_item then
-    local item_data = local_data[scroll_type][current_item]
+    local item_data = global.default_registry[current_item]
     if item_data then
-      local item_name = item_data[direction]
+      local item_name = item_data[constants.direction_to_grade[direction]]
       if item_name then
         cursor.set_stack(player, cursor_stack, player_table, item_name)
       end

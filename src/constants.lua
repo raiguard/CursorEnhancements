@@ -1,10 +1,13 @@
 local constants = {}
 
+constants.direction_to_grade = {
+  previous = "downgrade",
+  next = "upgrade"
+}
+
 constants.item_scroll_input_names = {
-  "cen-scroll-relatives-next",
-  "cen-scroll-relatives-previous",
-  "cen-scroll-groups-next",
-  "cen-scroll-groups-previous"
+  "cen-scroll-next",
+  "cen-scroll-previous",
 }
 
 constants.path_frame_columns = 5

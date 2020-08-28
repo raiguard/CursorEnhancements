@@ -6,22 +6,12 @@ data:extend{
   },
   {
     type = "custom-input",
-    name = "cen-scroll-relatives-next",
+    name = "cen-scroll-next",
     key_sequence = "SHIFT + mouse-wheel-up"
   },
   {
     type = "custom-input",
-    name = "cen-scroll-relatives-previous",
+    name = "cen-scroll-previous",
     key_sequence = "SHIFT + mouse-wheel-down"
-  },
-  {
-    type = "custom-input",
-    name = "cen-scroll-groups-next",
-    key_sequence = "CONTROL + mouse-wheel-up"
-  },
-  {
-    type = "custom-input",
-    name = "cen-scroll-groups-previous",
-    key_sequence = "CONTROL + mouse-wheel-down"
   }
 }

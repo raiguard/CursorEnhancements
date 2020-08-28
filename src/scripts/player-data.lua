@@ -1,5 +1,7 @@
 local player_data = {}
 
+local table = require("__flib__.table")
+
 local constants = require("constants")
 
 function player_data.init(player_index)
@@ -27,12 +29,46 @@ end
 
 function player_data.refresh(player, player_table)
   player_data.update_settings(player, player_table)
+  -- player_data.build_personal_registry(player)
 end
 
 function player_data.ensure_valid_inventory(player, player_table)
   if not player_table.main_inventory.valid then
     player_table.main_inventory = player.get_main_inventory()
   end
+end
+
+function player_data.build_personal_registry(player)
+  local prototypes = game.entity_prototypes
+  local data = table.deep_copy(global.default_registry)
+  local registry = game.json_to_table(player.mod_settings['cuc-custom-upgrade-registry'].value)
+  if not registry or type(registry) == "string" then
+    player.print{'cuc-message.invalid-string'}
+    return data
+  end
+  for name,upgrade in pairs(registry) do
+    -- get objects and validate them, or error if not
+    local prototype = prototypes[name]
+    if not prototype then
+      player.print{'cuc-message.invalid-name', name}
+      goto continue
+    end
+    local upgrade_prototype = prototypes[upgrade]
+    if not upgrade_prototype then
+      player.print{'cuc-message.invalid-upgrade-name', upgrade}
+      goto continue
+    end
+    for _,item in ipairs(prototype.items_to_place_this or {}) do
+      if not data[item.name] then data[item.name] = {} end
+      data[item.name].upgrade = upgrade
+    end
+    for _,item in ipairs(upgrade_prototype.items_to_place_this or {}) do
+      if not data[item.name] then data[item.name] = {} end
+      data[item.name].downgrade = name
+    end
+    ::continue::
+  end
+  return data
 end
 
 return player_data
