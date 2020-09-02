@@ -9,11 +9,9 @@ local util = require("scripts.util")
 function player_data.init(player_index, player)
   global.players[player_index] = {
     flags = {
-      config_gui_open = false,
       gui_open = false,
       holding_item = false
     },
-    gui = nil,
     last_item = nil,
     main_inventory = player.get_main_inventory(),
     settings = {}
@@ -48,10 +46,9 @@ function player_data.build_personal_registry(player, player_table)
   end
   -- copy base registroy
   local data = table.deep_copy(global.registry)
-
   -- apply overrides
   util.apply_overrides(data, overrides, game.item_prototypes)
-
+  -- save to player table
   player_table.registry = data
 end
 
