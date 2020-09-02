@@ -47,7 +47,7 @@ function cursor.scroll(player_index, direction)
   local current_item = cursor.check_stack(cursor_stack, player.cursor_ghost)
 
   if current_item then
-    local item_data = global.default_registry[current_item]
+    local item_data = player_table.registry[current_item]
     if item_data then
       local item_name = item_data[constants.direction_to_grade[direction]]
       if item_name then

@@ -4,6 +4,8 @@ local table = require("__flib__.table")
 
 local constants = require("constants")
 
+local util = require("scripts.util")
+
 function player_data.init(player_index, player)
   global.players[player_index] = {
     flags = {
@@ -28,7 +30,7 @@ end
 
 function player_data.refresh(player, player_table)
   player_data.update_settings(player, player_table)
-  -- player_data.build_personal_registry(player, player_table)
+  player_data.build_personal_registry(player, player_table)
 end
 
 function player_data.ensure_valid_inventory(player, player_table)
@@ -38,36 +40,19 @@ function player_data.ensure_valid_inventory(player, player_table)
 end
 
 function player_data.build_personal_registry(player, player_table)
-  local prototypes = game.entity_prototypes
-  local data = table.deep_copy(global.default_registry)
-  local registry = game.json_to_table(player.mod_settings['cen-custom-upgrade-registry'].value)
-  if not registry or type(registry) == "string" then
-    player.print{'cen-message.invalid-string'}
+  -- retrieve and parse personal overrides
+  local overrides = game.json_to_table(player.mod_settings['cen-personal-registry-overrides'].value)
+  if not overrides or type(overrides) == "string" then
+    player.print{'cen-message.invalid-personal-overrides-format'}
     return data
   end
-  for name,upgrade in pairs(registry) do
-    -- get objects and validate them, or error if not
-    local prototype = prototypes[name]
-    if not prototype then
-      player.print{'cen-message.invalid-name', name}
-      goto continue
-    end
-    local upgrade_prototype = prototypes[upgrade]
-    if not upgrade_prototype then
-      player.print{'cen-message.invalid-upgrade-name', upgrade}
-      goto continue
-    end
-    for _,item in ipairs(prototype.items_to_place_this or {}) do
-      if not data[item.name] then data[item.name] = {} end
-      data[item.name].upgrade = upgrade
-    end
-    for _,item in ipairs(upgrade_prototype.items_to_place_this or {}) do
-      if not data[item.name] then data[item.name] = {} end
-      data[item.name].downgrade = name
-    end
-    ::continue::
-  end
-  player_table.registry = registry
+  -- copy base registroy
+  local data = table.deep_copy(global.registry)
+
+  -- apply overrides
+  util.apply_overrides(data, overrides, game.item_prototypes)
+
+  player_table.registry = data
 end
 
 return player_data
