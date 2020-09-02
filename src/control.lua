@@ -116,7 +116,12 @@ end)
 
 event.on_runtime_mod_setting_changed(function(e)
   if string.sub(e.setting, 1, 4) == "cen-" and e.setting_type == "runtime-per-user" then
-    player_data.update_settings(game.get_player(e.player_index), global.players[e.player_index])
+    local player = game.get_player(e.player_index)
+    local player_table = global.players[e.player_index]
+    player_data.update_settings(player, player_table)
+    if e.setting == "cen-personal-registry-overrides" then
+      player_data.build_personal_registry(player, player_table)
+    end
   end
 end)
 
