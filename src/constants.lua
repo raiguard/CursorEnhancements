@@ -18,7 +18,9 @@ constants.default_overrides = {
     ["logistic-chest-buffer"] = "logistic-chest-storage",
     ["logistic-chest-storage"] = "logistic-chest-passive-provider",
     ["logistic-chest-passive-provider"] = "logistic-chest-active-provider",
-    ["logistic-chest-active-provider"] = "steel-chest"
+    ["logistic-chest-active-provider"] = "steel-chest",
+    -- pipes
+    ["pipe"] = "pipe-to-ground"
   }
 }
 
