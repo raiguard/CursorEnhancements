@@ -4,8 +4,7 @@ local table = require("__flib__.table")
 
 local constants = require("constants")
 
-function player_data.init(player_index)
-  local player = game.get_player(player_index)
+function player_data.init(player_index, player)
   global.players[player_index] = {
     flags = {
       config_gui_open = false,
@@ -29,7 +28,7 @@ end
 
 function player_data.refresh(player, player_table)
   player_data.update_settings(player, player_table)
-  -- player_data.build_personal_registry(player)
+  -- player_data.build_personal_registry(player, player_table)
 end
 
 function player_data.ensure_valid_inventory(player, player_table)
@@ -38,24 +37,24 @@ function player_data.ensure_valid_inventory(player, player_table)
   end
 end
 
-function player_data.build_personal_registry(player)
+function player_data.build_personal_registry(player, player_table)
   local prototypes = game.entity_prototypes
   local data = table.deep_copy(global.default_registry)
-  local registry = game.json_to_table(player.mod_settings['cuc-custom-upgrade-registry'].value)
+  local registry = game.json_to_table(player.mod_settings['cen-custom-upgrade-registry'].value)
   if not registry or type(registry) == "string" then
-    player.print{'cuc-message.invalid-string'}
+    player.print{'cen-message.invalid-string'}
     return data
   end
   for name,upgrade in pairs(registry) do
     -- get objects and validate them, or error if not
     local prototype = prototypes[name]
     if not prototype then
-      player.print{'cuc-message.invalid-name', name}
+      player.print{'cen-message.invalid-name', name}
       goto continue
     end
     local upgrade_prototype = prototypes[upgrade]
     if not upgrade_prototype then
-      player.print{'cuc-message.invalid-upgrade-name', upgrade}
+      player.print{'cen-message.invalid-upgrade-name', upgrade}
       goto continue
     end
     for _,item in ipairs(prototype.items_to_place_this or {}) do
@@ -68,7 +67,7 @@ function player_data.build_personal_registry(player)
     end
     ::continue::
   end
-  return data
+  player_table.registry = registry
 end
 
 return player_data

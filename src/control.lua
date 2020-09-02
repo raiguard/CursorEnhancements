@@ -7,6 +7,7 @@ local cursor = require("scripts.cursor")
 local global_data = require("scripts.global-data")
 local migrations = require("scripts.migrations")
 local player_data = require("scripts.player-data")
+local remote_interface = require("scripts.remote-interface")
 
 -- -----------------------------------------------------------------------------
 -- EVENT HANDLERS
@@ -16,19 +17,17 @@ local player_data = require("scripts.player-data")
 event.on_init(function()
   global_data.init()
   for i, player in pairs(game.players) do
-    player_data.init(i)
-    local player_table = global.players[i]
-    player_data.refresh(player, player_table)
+    player_data.init(i, player)
   end
 end)
 
+-- to make the remote interface work, don't build the registry until on_configuration_changed, to give mods time to call the interface in on_init and on_load
 event.on_configuration_changed(function(e)
-  if migration.on_config_changed(e, migrations) then
-    global_data.build_default_registry()
-
-    for i, player in pairs(game.players) do
-      player_data.refresh(player, global.players[i])
-    end
+  migration.on_config_changed(e, migrations)
+  global_data.build_global_registry()
+  for i, player in pairs(game.players) do
+    player_data.refresh(player, global.players[i])
+    player_data.build_personal_registry(player, global.players[i])
   end
 end)
 
@@ -60,8 +59,8 @@ end)
 -- PLAYER
 
 event.on_player_created(function(e)
-  player_data.init(e.player_index)
   local player = game.get_player(e.player_index)
+  player_data.init(e.player_index, player)
   local player_table = global.players[e.player_index]
   player_data.refresh(player, player_table)
 end)
@@ -116,7 +115,12 @@ end)
 -- SETTINGS
 
 event.on_runtime_mod_setting_changed(function(e)
-  if string.sub(e.setting, 1, 3) == "cen-" and e.setting_type == "runtime-per-user" then
+  if string.sub(e.setting, 1, 4) == "cen-" and e.setting_type == "runtime-per-user" then
     player_data.update_settings(game.get_player(e.player_index), global.players[e.player_index])
   end
 end)
+
+-- -----------------------------------------------------------------------------
+-- REMOTE INTERFACE
+
+remote.add_interface("CursorEnhancements", remote_interface)

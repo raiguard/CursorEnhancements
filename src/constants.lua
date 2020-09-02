@@ -1,5 +1,23 @@
 local constants = {}
 
+constants.default_overrides = {
+  ["base"] = {
+    -- logistic chests
+    {"logistic-chest-requester", "logistic-chest-buffer"},
+    {"logistic-chest-buffer", "logistic-chest-storage"},
+    {"logistic-chest-storage", "logistic-chest-passive-provider"},
+    {"logistic-chest-passive-provider", "logistic-chest-active-provider"},
+    {"logistic-chest-active-provider", "steel-chest"},
+    -- inserters
+    {"burner-inserter", "inserter"},
+    {"inserter", "long-handed-inserter"},
+    {"long-handed-inserter", "fast-inserter"},
+    {"fast-inserter", "filter-inserter"},
+    {"filter-inserter", "stack-inserter"},
+    {"stack-inserter", "stack-filter-inserter"}
+  }
+}
+
 constants.direction_to_grade = {
   previous = "downgrade",
   next = "upgrade"
