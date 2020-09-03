@@ -18,19 +18,28 @@ function cursor.set_stack(player, cursor_stack, player_table, item_name)
   local spawn_item = player_table.settings.spawn_items_when_cheating and (player.cheat_mode or (player.controller_type == defines.controllers.editor))
   player_data.ensure_valid_inventory(player, player_table)
   local main_inventory = player_table.main_inventory
-  local item_count = main_inventory.get_item_count(item_name)
-  if item_count > 0 then
-    player.clean_cursor()
-    cursor_stack.set_stack{name=item_name, count=main_inventory.remove{name=item_name, count=game.item_prototypes[item_name].stack_size}}
+  local item_stack, item_stack_index = main_inventory.find_item_stack(item_name)
+  if item_stack and item_stack.valid then
+    if player.clean_cursor() then
+      cursor_stack.transfer_stack(item_stack)
+      player.hand_location = {inventory=main_inventory.index, slot=item_stack_index}
+    end
     return true
   elseif spawn_item then
-    player.clean_cursor()
-    cursor_stack.set_stack{name=item_name, count=game.item_prototypes[item_name].stack_size}
+    local stack_spec = {name=item_name, count=game.item_prototypes[item_name].stack_size}
+    -- insert into main inventory first, then transfer and set the hand location
+    if main_inventory.can_insert(stack_spec) and player.clean_cursor() then
+      main_inventory.insert(stack_spec)
+      local new_stack, new_stack_index = main_inventory.find_item_stack(item_name)
+      cursor_stack.transfer_stack(new_stack)
+      player.hand_location = {inventory=main_inventory.index, slot=new_stack_index}
+    else
+      player.print{"cen-message.main-inventory-full"}
+    end
     return true
   else
     local place_result = game.item_prototypes[item_name].place_result
-    if place_result then
-      player.clean_cursor()
+    if place_result and player.clean_cursor() then
       player_table.last_item = item_name
       player.cursor_ghost = item_name
       return true
