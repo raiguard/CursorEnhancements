@@ -15,12 +15,19 @@ function cursor.check_stack(cursor_stack, cursor_ghost)
 end
 
 function cursor.set_stack(player, cursor_stack, player_table, item_name)
-  local spawn_item = player_table.settings.spawn_items_when_cheating and (player.cheat_mode or (player.controller_type == defines.controllers.editor))
+  -- spawn items setting
+  local is_cheating = player.cheat_mode or (player.controller_type == defines.controllers.editor)
+  local spawn_item = player_table.settings.spawn_items_when_cheating
+
+  -- main inventory
   player_data.ensure_valid_inventory(player, player_table)
   local main_inventory = player_table.main_inventory
+
+  -- set cursor stack
   local item_stack, item_stack_index = main_inventory.find_item_stack(item_name)
   if item_stack and item_stack.valid then
     if player.clean_cursor() then
+      -- actually transfer from the main inventory, then set the hand location
       cursor_stack.transfer_stack(item_stack)
       player.hand_location = {inventory=main_inventory.index, slot=item_stack_index}
     end
