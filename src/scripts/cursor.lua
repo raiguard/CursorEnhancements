@@ -26,7 +26,7 @@ function cursor.set_stack(player, cursor_stack, player_table, item_name)
   -- set cursor stack
   local item_stack, item_stack_index = main_inventory.find_item_stack(item_name)
   if item_stack and item_stack.valid then
-    if player.clean_cursor() then
+    if player.clear_cursor() then
       -- actually transfer from the main inventory, then set the hand location
       cursor_stack.transfer_stack(item_stack)
       player.hand_location = {inventory=main_inventory.index, slot=item_stack_index}
@@ -35,7 +35,7 @@ function cursor.set_stack(player, cursor_stack, player_table, item_name)
   elseif spawn_item then
     local stack_spec = {name=item_name, count=game.item_prototypes[item_name].stack_size}
     -- insert into main inventory first, then transfer and set the hand location
-    if main_inventory.can_insert(stack_spec) and player.clean_cursor() then
+    if main_inventory.can_insert(stack_spec) and player.clear_cursor() then
       main_inventory.insert(stack_spec)
       local new_stack, new_stack_index = main_inventory.find_item_stack(item_name)
       cursor_stack.transfer_stack(new_stack)
@@ -46,7 +46,7 @@ function cursor.set_stack(player, cursor_stack, player_table, item_name)
     return true
   else
     local place_result = game.item_prototypes[item_name].place_result
-    if place_result and player.clean_cursor() then
+    if place_result and player.clear_cursor() then
       player_table.last_item = item_name
       player.cursor_ghost = item_name
       return true
