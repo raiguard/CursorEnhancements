@@ -1,3 +1,5 @@
+-- see https://github.com/raiguard/Factorio-CursorEnhancements/wiki/Remote-Interface-Documentation
+
 local remote_interface = {}
 
 local global_data = require("scripts.global-data")

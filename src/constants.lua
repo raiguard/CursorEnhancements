@@ -2,6 +2,14 @@ local constants = {}
 
 constants.default_overrides = {
   ["base"] = {
+    -- circuits
+    ["red-wire"] = "green-wire",
+    ["green-wire"] = "small-lamp",
+    ["small-lamp"] = "arithmetic-combinator",
+    ["arithmetic-combinator"] = "decider-combinator",
+    ["decider-combinator"] = "constant-combinator",
+    ["constant-combinator"] = "power-switch",
+    ["power-switch"] = "programmable-speaker",
     -- electric poles
     ["small-electric-pole"] = "medium-electric-pole",
     ["medium-electric-pole"] = "big-electric-pole",
@@ -14,19 +22,21 @@ constants.default_overrides = {
     ["filter-inserter"] = "stack-inserter",
     ["stack-inserter"] = "stack-filter-inserter",
     -- logistic chests
-    ["logistic-chest-requester"] = "logistic-chest-buffer",
-    ["logistic-chest-buffer"] = "logistic-chest-storage",
-    ["logistic-chest-storage"] = "logistic-chest-passive-provider",
-    ["logistic-chest-passive-provider"] = "logistic-chest-active-provider",
-    ["logistic-chest-active-provider"] = "steel-chest",
+    ["steel-chest"] = "logistic-chest-active-provider",
+    ["logistic-chest-active-provider"] = "logistic-chest-passive-provider",
+    ["logistic-chest-passive-provider"] = "logistic-chest-storage",
+    ["logistic-chest-storage"] = "logistic-chest-buffer",
+    ["logistic-chest-buffer"] = "logistic-chest-requester",
     -- pipes
-    ["pipe"] = "pipe-to-ground"
+    ["pipe"] = "pipe-to-ground",
+    -- rails
+    ["rail"] = "rail-signal",
+    ["rail-signal"] = "rail-chain-signal",
+    ["rail-chain-signal"] = "train-stop",
+    -- trains
+    ["locomotive"] = "cargo-wagon",
+    ["cargo-wagon"] = "fluid-wagon"
   }
-}
-
-constants.direction_to_grade = {
-  previous = "downgrade",
-  next = "upgrade"
 }
 
 constants.item_scroll_input_names = {
