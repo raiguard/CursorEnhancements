@@ -19,14 +19,14 @@ function global_data.build_global_registry()
   -- auto-generated
   for name, prototype in pairs(entity_prototypes) do
     if prototype.next_upgrade and prototype.items_to_place_this then
-      local upgrade = prototype.next_upgrade.name
-      for _,item in ipairs(prototype.items_to_place_this) do
+      local next_item = prototype.next_upgrade.name
+      for _, item in ipairs(prototype.items_to_place_this) do
         if not data[item.name] then data[item.name] = {} end
-        data[item.name].upgrade = upgrade
+        data[item.name].next = next_item
       end
-      for _,item in ipairs(entity_prototypes[upgrade].items_to_place_this) do
+      for _, item in ipairs(entity_prototypes[next_item].items_to_place_this) do
         if not data[item.name] then data[item.name] = {} end
-        data[item.name].downgrade = name
+        data[item.name].previous = name
       end
     end
   end
