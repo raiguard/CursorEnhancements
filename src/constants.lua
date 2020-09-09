@@ -35,9 +35,12 @@ constants.default_overrides = {
     ["rail-chain-signal"] = "train-stop",
     -- trains
     ["locomotive"] = "cargo-wagon",
-    ["cargo-wagon"] = "fluid-wagon"
+    ["cargo-wagon"] = "fluid-wagon",
+    ["fluid-wagon"] = "artillery-wagon"
   }
 }
+
+constants.interface_version = 1
 
 constants.item_scroll_input_names = {
   "cen-scroll-next",
