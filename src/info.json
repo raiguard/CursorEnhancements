@@ -5,5 +5,5 @@
   "author": "raiguard",
   "factorio_version": "0.18",
   "dependencies": ["base >= 0.18.30", "flib >= 0.3.2"],
-  "description": "Enhances the cursor with scrolling related items, seamless ghost transitions, recalling the last held item, and more! Highly configurable."
+  "description": "Enhances the cursor with a variety of tools and shortcuts. Recall the last held item, scroll between related items, and seamlessly switch between real items and the ghost cursor."
 }
