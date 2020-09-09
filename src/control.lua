@@ -21,7 +21,8 @@ event.on_init(function()
   end
 end)
 
--- to make the remote interface work, don't build the registry until on_configuration_changed, to give mods time to call the interface in on_init and on_load
+-- to make the remote interface work, don't build the registry until on_configuration_changed, to give mods time to call
+-- the interface in on_init and on_load
 event.on_configuration_changed(function(e)
   migration.on_config_changed(e, migrations)
   global_data.build_global_registry()
@@ -51,7 +52,9 @@ end)
 event.register("cen-recall-last-item", function(e)
   local player = game.get_player(e.player_index)
   local player_table = global.players[e.player_index]
-  if player_table.last_item and not cursor.set_stack(player, player.cursor_stack, player_table, player_table.last_item) then
+  if player_table.last_item
+    and not cursor.set_stack(player, player.cursor_stack, player_table, player_table.last_item)
+  then
     player.print{"cen-message.unable-to-recall"}
   end
 end)
