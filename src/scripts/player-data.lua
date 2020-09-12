@@ -43,7 +43,7 @@ function player_data.refresh(player, player_table)
 end
 
 function player_data.ensure_valid_inventory(player, player_table)
-  if not player_table.main_inventory.valid then
+  if not player_table.main_inventory or not player_table.main_inventory.valid then
     player_table.main_inventory = player.get_main_inventory()
   end
 end
