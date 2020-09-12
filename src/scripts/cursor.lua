@@ -66,13 +66,13 @@ function cursor.scroll(player_index, direction)
 
   if current_item then
     -- check personal registry, then the global registry
-    local data_table = player_table.registry[current_item]
-    if not data_table or not data_table[direction] then
-      data_table = global.registry[current_item]
+    local registry = player_table.registry[current_item]
+    if not registry or not registry[direction] then
+      registry = global.registry[current_item]
     end
     -- set stack
-    if data_table and data_table[direction] then
-      cursor.set_stack(player, cursor_stack, player_table, data_table[direction])
+    if registry and registry[direction] then
+      cursor.set_stack(player, cursor_stack, player_table, registry[direction])
     end
   end
 end
