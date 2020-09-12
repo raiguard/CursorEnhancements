@@ -26,30 +26,26 @@ function player_data.update_settings(player, player_table)
   end
 end
 
+function player_data.update_personal_overrides(player, player_table)
+  -- retrieve and parse personal overrides
+  local overrides = game.json_to_table(player.mod_settings['cen-personal-registry-overrides'].value)
+  if not overrides or type(overrides) == "string" then
+    player.print{'cen-message.invalid-personal-overrides-format'}
+    overrides = {}
+  end
+  -- convert to registry and save
+  player_table.registry = util.apply_overrides({}, overrides, game.item_prototypes)
+end
+
 function player_data.refresh(player, player_table)
   player_data.update_settings(player, player_table)
-  player_data.build_personal_registry(player, player_table)
+  player_data.update_personal_overrides(player, player_table)
 end
 
 function player_data.ensure_valid_inventory(player, player_table)
   if not player_table.main_inventory.valid then
     player_table.main_inventory = player.get_main_inventory()
   end
-end
-
-function player_data.build_personal_registry(player, player_table)
-  -- retrieve and parse personal overrides
-  local overrides = game.json_to_table(player.mod_settings['cen-personal-registry-overrides'].value)
-  if not overrides or type(overrides) == "string" then
-    player.print{'cen-message.invalid-personal-overrides-format'}
-    return data
-  end
-  -- copy base registroy
-  local data = table.deep_copy(global.registry)
-  -- apply overrides
-  util.apply_overrides(data, overrides, game.item_prototypes)
-  -- save to player table
-  player_table.registry = data
 end
 
 return player_data

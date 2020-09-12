@@ -65,12 +65,14 @@ function cursor.scroll(player_index, direction)
   local current_item = cursor.check_stack(cursor_stack, player.cursor_ghost)
 
   if current_item then
-    local item_data = player_table.registry[current_item]
-    if item_data then
-      local item_name = item_data[direction]
-      if item_name then
-        cursor.set_stack(player, cursor_stack, player_table, item_name)
-      end
+    -- check personal registry, then the global registry
+    local data_table = player_table.registry[current_item]
+    if not data_table or not data_table[direction] then
+      data_table = global.registry[current_item]
+    end
+    -- set stack
+    if data_table and data_table[direction] then
+      cursor.set_stack(player, cursor_stack, player_table, data_table[direction])
     end
   end
 end

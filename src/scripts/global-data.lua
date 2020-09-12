@@ -6,16 +6,16 @@ local util = require("scripts.util")
 
 function global_data.init()
   global.players = {}
-end
 
--- added to from scripts.remote-interface
-global_data.mod_overrides = {}
+  global_data.build_global_registry()
+end
 
 -- build the default upgrade/downgrade registry
 function global_data.build_global_registry()
   local entity_prototypes = game.entity_prototypes
   local item_prototypes = game.item_prototypes
   local data = {}
+
   -- auto-generated
   for name, prototype in pairs(entity_prototypes) do
     if prototype.next_upgrade and prototype.items_to_place_this then
@@ -30,14 +30,13 @@ function global_data.build_global_registry()
       end
     end
   end
+
   -- default overrides
   for mod_name, overrides in pairs(constants.default_overrides) do
     if script.active_mods[mod_name] then
       util.apply_overrides(data, overrides, item_prototypes)
     end
   end
-  -- mod overrides
-  util.apply_overrides(data, global_data.mod_overrides, item_prototypes)
 
   global.registry = data
 end

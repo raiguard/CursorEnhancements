@@ -3,12 +3,10 @@
 local remote_interface = {}
 
 local constants = require("constants")
-local global_data = require("scripts.global-data")
+local util = require("scripts.util")
 
 function remote_interface.add_overrides(mod_overrides)
-  for name, upgrade in pairs(mod_overrides) do
-    global_data.mod_overrides[name] = upgrade
-  end
+  util.apply_overrides(global.registry, mod_overrides, game.item_prototypes)
 end
 
 function remote_interface.version()

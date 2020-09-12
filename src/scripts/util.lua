@@ -40,6 +40,8 @@ function util.apply_overrides(data, overrides, item_prototypes)
       end
     end
   end
+
+  return data
 end
 
 return util
