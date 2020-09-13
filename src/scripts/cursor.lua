@@ -1,7 +1,5 @@
 local cursor = {}
 
-local constants = require("constants")
-
 local player_data = require("scripts.player-data")
 
 function cursor.check_stack(cursor_stack, cursor_ghost)
@@ -15,9 +13,13 @@ function cursor.check_stack(cursor_stack, cursor_ghost)
 end
 
 function cursor.set_stack(player, cursor_stack, player_table, item_name)
-  -- spawn items setting
   local is_cheating = player.cheat_mode or (player.controller_type == defines.controllers.editor)
   local spawn_item = player_table.settings.spawn_items_when_cheating
+
+  -- space exploration - don't spawn items when in the satellite view
+  if script.active_mods["space-exploration"] and player.controller_type == defines.controllers.god then
+    spawn_item = false
+  end
 
   -- main inventory
   player_data.ensure_valid_inventory(player, player_table)
@@ -32,7 +34,7 @@ function cursor.set_stack(player, cursor_stack, player_table, item_name)
       player.hand_location = {inventory=main_inventory.index, slot=item_stack_index}
     end
     return true
-  elseif spawn_item then
+  elseif spawn_item and is_cheating then
     local stack_spec = {name=item_name, count=game.item_prototypes[item_name].stack_size}
     -- insert into main inventory first, then transfer and set the hand location
     if main_inventory.can_insert(stack_spec) and player.clear_cursor() then
@@ -63,12 +65,14 @@ function cursor.scroll(player_index, direction)
   local current_item = cursor.check_stack(cursor_stack, player.cursor_ghost)
 
   if current_item then
-    local item_data = player_table.registry[current_item]
-    if item_data then
-      local item_name = item_data[constants.direction_to_grade[direction]]
-      if item_name then
-        cursor.set_stack(player, cursor_stack, player_table, item_name)
-      end
+    -- check personal registry, then the global registry
+    local registry = player_table.registry[current_item]
+    if not registry or not registry[direction] then
+      registry = global.registry[current_item]
+    end
+    -- set stack
+    if registry and registry[direction] then
+      cursor.set_stack(player, cursor_stack, player_table, registry[direction])
     end
   end
 end

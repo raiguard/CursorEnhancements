@@ -18,16 +18,16 @@ event.on_init(function()
   global_data.init()
   for i, player in pairs(game.players) do
     player_data.init(i, player)
+    player_data.refresh(player, global.players[i])
   end
 end)
 
--- to make the remote interface work, don't build the registry until on_configuration_changed, to give mods time to call the interface in on_init and on_load
 event.on_configuration_changed(function(e)
-  migration.on_config_changed(e, migrations)
-  global_data.build_global_registry()
-  for i, player in pairs(game.players) do
-    player_data.refresh(player, global.players[i])
-    player_data.build_personal_registry(player, global.players[i])
+  if migration.on_config_changed(e, migrations) then
+    global_data.build_global_registry()
+    for i, player in pairs(game.players) do
+      player_data.update_personal_overrides(player, global.players[i])
+    end
   end
 end)
 
@@ -51,7 +51,9 @@ end)
 event.register("cen-recall-last-item", function(e)
   local player = game.get_player(e.player_index)
   local player_table = global.players[e.player_index]
-  if player_table.last_item and not cursor.set_stack(player, player.cursor_stack, player_table, player_table.last_item) then
+  if player_table.last_item
+    and not cursor.set_stack(player, player.cursor_stack, player_table, player_table.last_item)
+  then
     player.print{"cen-message.unable-to-recall"}
   end
 end)
@@ -120,7 +122,7 @@ event.on_runtime_mod_setting_changed(function(e)
     local player_table = global.players[e.player_index]
     player_data.update_settings(player, player_table)
     if e.setting == "cen-personal-registry-overrides" then
-      player_data.build_personal_registry(player, player_table)
+      player_data.update_personal_overrides(player, player_table)
     end
   end
 end)

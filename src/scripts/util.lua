@@ -1,46 +1,47 @@
 local util = {}
 
--- TODO rename "upgrade" and "downgrade" to "next" and "previous"
 function util.apply_overrides(data, overrides, item_prototypes)
-  for name, upgrade in pairs(overrides) do
-    if item_prototypes[name] and (upgrade and item_prototypes[upgrade] or true) then
-      local old_upgrade
+  for item, next_item in pairs(overrides) do
+    if item_prototypes[item] and (next_item and item_prototypes[next_item] or true) then
+      local old_next_item
       -- this entity
-      local entity_data = data[name]
-      if entity_data then
-        old_upgrade = entity_data.upgrade
-        if upgrade then
-          entity_data.upgrade = upgrade
+      local item_data = data[item]
+      if item_data then
+        old_next_item = item_data.next
+        if next_item then
+          item_data.next = next_item
         else
-          entity_data.upgrade = nil
-          if not entity_data.downgrade then
-            data[name] = nil
+          item_data.next = nil
+          if not item_data.previous then
+            data[item] = nil
           end
         end
-      elseif upgrade then
-        data[name] = {upgrade=upgrade}
+      elseif next_item then
+        data[item] = {next=next_item}
       end
-      -- old upgrade's downgrade
-      if old_upgrade then
-        local old_upgrade_data = data[old_upgrade]
-        if old_upgrade_data then
-          old_upgrade_data.downgrade = nil
-          if not old_upgrade_data.upgrade then
-            data[old_upgrade] = nil
+      -- old next's previous
+      if old_next_item then
+        local old_next_data = data[old_next_item]
+        if old_next_data then
+          old_next_data.previous = nil
+          if not old_next_data.next then
+            data[old_next_item] = nil
           end
         end
       end
-      -- new upgrade's downgrade
-      if upgrade then
-        local upgrade_data = data[upgrade]
-        if upgrade_data then
-          upgrade_data.downgrade = name
-        elseif upgrade then
-          data[upgrade] = {downgrade=name}
+      -- new next's previous
+      if next_item then
+        local next_item_data = data[next_item]
+        if next_item_data then
+          next_item_data.previous = item
+        elseif next_item then
+          data[next_item] = {previous=item}
         end
       end
     end
   end
+
+  return data
 end
 
 return util
