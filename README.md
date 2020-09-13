@@ -20,7 +20,7 @@ The mod will auto-detect an entity's upgrades and downgrades and automatically s
 
 If you don't have an item and that item places an entity, the ghost cursor will be set. If you are in cheat mode, the mod will simply give you a stack of that item instead.
 
-Other mods can tap Cursor Enhancements' remote interface to add their own overrides. See the ![Remote Interface documentation](https://github.com/raiguard/Factorio-CursorEnhancements/wiki/Remote-Interface-Documentation) for instructions.
+Other mods can tap Cursor Enhancements' remote interface to add their own overrides. See the [Remote Interface documentation](https://github.com/raiguard/Factorio-CursorEnhancements/wiki/Remote-Interface-Documentation) for instructions.
 
 Additionally, each player can add their own overrides via the mod settings.
 
