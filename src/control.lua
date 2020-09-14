@@ -45,16 +45,6 @@ event.on_entity_destroyed(function(e)
   end
 end)
 
--- GUI
-
-event.on_gui_opened(function(e)
-  global.players[e.player_index].flags.gui_open = true
-end)
-
-event.on_gui_closed(function(e)
-  global.players[e.player_index].flags.gui_open = false
-end)
-
 -- INPUTS
 
 event.register(constants.item_scroll_input_names, function(e)
@@ -104,28 +94,27 @@ event.on_player_cursor_stack_changed(function(e)
 
   -- check `building` flag
   -- only proceed if it is true
-  if not player_table.flags.building then return end
-  -- reset the flag
-  player_table.flags.building = false
+  if player_table.flags.building then
+    -- reset the flag
+    player_table.flags.building = false
 
-  local cursor_stack = player.cursor_stack
-  local current_item = cursor_stack and cursor_stack.valid_for_read and cursor_stack.name
+    local cursor_stack = player.cursor_stack
+    local current_item = cursor_stack and cursor_stack.valid_for_read and cursor_stack.name
 
-  if current_item then
-    player_table.last_item = current_item
-  elseif
-    player_table.settings.ghost_cursor_transitions
-    and not player_table.flags.gui_open
-    and not player.cursor_ghost
-  then
-    -- only transition if they're placing an entity - otherwise weird side effects occur
-    local last_item = player_table.last_item
-    if last_item then
-      player_data.ensure_valid_inventory(player, player_table)
-      if player_table.main_inventory.get_item_count(last_item) == 0 then
-        local entity = game.item_prototypes[last_item].place_result
-        if entity then
-          cursor.set_stack(player, cursor_stack, player_table, last_item)
+    if current_item then
+      player_table.last_item = current_item
+    elseif
+      player_table.settings.ghost_cursor_transitions
+      and not player.cursor_ghost
+    then
+      local last_item = player_table.last_item
+      if last_item then
+        player_data.ensure_valid_inventory(player, player_table)
+        if player_table.main_inventory.get_item_count(last_item) == 0 then
+          local entity = game.item_prototypes[last_item].place_result
+          if entity then
+            cursor.set_stack(player, cursor_stack, player_table, last_item)
+          end
         end
       end
     end

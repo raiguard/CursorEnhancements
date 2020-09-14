@@ -1,7 +1,5 @@
 local player_data = {}
 
-local table = require("__flib__.table")
-
 local constants = require("constants")
 
 local util = require("scripts.util")
@@ -9,8 +7,7 @@ local util = require("scripts.util")
 function player_data.init(player_index, player)
   global.players[player_index] = {
     flags = {
-      building = false,
-      gui_open = false
+      building = false
     },
     last_item = nil,
     main_inventory = player.get_main_inventory(),

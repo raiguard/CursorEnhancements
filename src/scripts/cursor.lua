@@ -91,7 +91,6 @@ function cursor.create_proxy(player, selected, item)
 
   -- create / don't create proxy
   if selected.can_insert{name=item} then
-    -- check for stored proxy reference
     if proxy then
       -- update proxy's request count
       local requests = proxy.item_requests
@@ -120,9 +119,7 @@ function cursor.create_proxy(player, selected, item)
     -- flying text
     text = {"cen-message.cannot-request", item_name}
     -- play sound
-    player.play_sound{
-      path = "utility/cannot_build"
-    }
+    player.play_sound{path="utility/cannot_build"}
   end
   -- create flying text
   player.create_local_flying_text{
