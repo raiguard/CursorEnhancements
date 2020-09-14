@@ -66,13 +66,18 @@ function cursor.scroll(player_index, direction)
 
   if current_item then
     -- check personal registry, then the global registry
-    local registry = player_table.registry[current_item]
-    if not registry or not registry[direction] then
-      registry = global.registry[current_item]
-    end
-    -- set stack
-    if registry and registry[direction] then
-      cursor.set_stack(player, cursor_stack, player_table, registry[direction])
+    local personal_registry = player_table.registry[current_item]
+    local global_registry = global.registry[current_item]
+    local item = (personal_registry and personal_registry[direction])
+      or (global_registry and global_registry[direction])
+      if item then
+        -- set stack
+      cursor.set_stack(player, cursor_stack, player_table, item)
+      -- create flying text
+      player.create_local_flying_text{
+        text = game.item_prototypes[item].localised_name,
+        create_at_cursor = true
+      }
     end
   end
 end
