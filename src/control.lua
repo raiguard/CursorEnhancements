@@ -31,20 +31,6 @@ event.on_configuration_changed(function(e)
   end
 end)
 
--- ENTITY
-
-event.on_entity_destroyed(function(e)
-  -- proxies are all we care about and they always have unit numbers
-  if e.unit_number then
-    local proxies = global.proxies
-    local target_unit_number = proxies.by_proxy[e.unit_number]
-    if target_unit_number then
-      proxies.by_proxy[e.unit_number] = nil
-      proxies.by_target[target_unit_number] = nil
-    end
-  end
-end)
-
 -- INPUTS
 
 event.register(constants.item_scroll_input_names, function(e)
@@ -59,15 +45,6 @@ event.register("cen-recall-last-item", function(e)
     and not cursor.set_stack(player, player.cursor_stack, player_table, player_table.last_item)
   then
     player.print{"cen-message.unable-to-recall"}
-  end
-end)
-
-event.register("cen-transfer-stack-from-network", function(e)
-  local player = game.get_player(e.player_index)
-  local selected = player.selected
-  local item = cursor.check_stack(player.cursor_stack, player.cursor_ghost)
-  if selected and selected.force == player.force and item then
-    cursor.create_proxy(player, selected, item)
   end
 end)
 

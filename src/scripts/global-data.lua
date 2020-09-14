@@ -6,12 +6,6 @@ local util = require("scripts.util")
 
 function global_data.init()
   global.players = {}
-  global.proxies = {
-    -- proxy unit_number -> target unit_number
-    by_proxy = {},
-    -- target unit_number -> proxy entity
-    by_target = {}
-  }
 
   global_data.build_global_registry()
 end
