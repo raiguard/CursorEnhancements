@@ -84,6 +84,7 @@ event.on_player_cursor_stack_changed(function(e)
     and not player_table.flags.gui_open
     and not player.cursor_ghost
   then
+    -- only transition if they're placing an entity - otherwise weird side effects occur
     local last_item = player_table.last_item
     if last_item then
       player_data.ensure_valid_inventory(player, player_table)
