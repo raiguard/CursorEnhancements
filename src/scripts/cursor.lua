@@ -46,15 +46,10 @@ function cursor.set_stack(player, cursor_stack, player_table, item_name)
       player.print{"cen-message.main-inventory-full"}
     end
     return true
-  else
-    local place_result = game.item_prototypes[item_name].place_result
-    if place_result and player.clear_cursor() then
-      player_table.last_item = item_name
-      player.cursor_ghost = item_name
-      return true
-    else
-      return false
-    end
+  elseif player.clear_cursor() then
+    player_table.last_item = item_name
+    player.cursor_ghost = item_name
+    return true
   end
 end
 
