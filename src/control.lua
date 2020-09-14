@@ -94,9 +94,20 @@ event.on_player_removed(function(e)
   global.players[e.player_index] = nil
 end)
 
+event.on_put_item(function(e)
+  global.players[e.player_index].flags.building = true
+end)
+
 event.on_player_cursor_stack_changed(function(e)
   local player = game.get_player(e.player_index)
   local player_table = global.players[e.player_index]
+
+  -- check `building` flag
+  -- only proceed if it is true
+  if not player_table.flags.building then return end
+  -- reset the flag
+  player_table.flags.building = false
+
   local cursor_stack = player.cursor_stack
   local current_item = cursor_stack and cursor_stack.valid_for_read and cursor_stack.name
 

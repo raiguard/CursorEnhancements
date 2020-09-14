@@ -9,6 +9,7 @@ local util = require("scripts.util")
 function player_data.init(player_index, player)
   global.players[player_index] = {
     flags = {
+      building = false,
       gui_open = false,
       holding_item = false
     },
