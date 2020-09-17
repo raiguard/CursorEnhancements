@@ -69,10 +69,7 @@ event.on_player_cursor_stack_changed(function(e)
   local player = game.get_player(e.player_index)
   local player_table = global.players[e.player_index]
 
-  -- check `building` flag
-  -- only proceed if it is true
   if player_table.flags.building then
-    -- reset the flag
     player_table.flags.building = false
 
     local cursor_stack = player.cursor_stack

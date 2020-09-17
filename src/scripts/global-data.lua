@@ -14,7 +14,7 @@ end
 function global_data.build_global_registry()
   local entity_prototypes = game.entity_prototypes
   local item_prototypes = game.item_prototypes
-  local data = {
+  local registry = {
     next = {},
     previous = {}
   }
@@ -30,8 +30,8 @@ function global_data.build_global_registry()
         -- this is a temporary solution
         local current_item = current_items[1].name
         local next_item = next_items[1].name
-        data.next[current_item] = next_item
-        data.previous[next_item] = current_item
+        registry.next[current_item] = next_item
+        registry.previous[next_item] = current_item
       end
     end
   end
@@ -39,11 +39,11 @@ function global_data.build_global_registry()
   -- default overrides
   for mod_name, overrides in pairs(constants.default_overrides) do
     if script.active_mods[mod_name] then
-      util.apply_overrides(data, overrides, item_prototypes)
+      util.apply_overrides(registry, overrides, item_prototypes)
     end
   end
 
-  global.registry = data
+  global.registry = registry
 end
 
 return global_data
