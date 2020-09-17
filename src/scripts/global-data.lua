@@ -14,19 +14,24 @@ end
 function global_data.build_global_registry()
   local entity_prototypes = game.entity_prototypes
   local item_prototypes = game.item_prototypes
-  local data = {}
+  local data = {
+    next = {},
+    previous = {}
+  }
 
   -- auto-generated
-  for name, prototype in pairs(entity_prototypes) do
-    if prototype.next_upgrade and prototype.items_to_place_this then
-      local next_item = prototype.next_upgrade.name
-      for _, item in ipairs(prototype.items_to_place_this) do
-        if not data[item.name] then data[item.name] = {} end
-        data[item.name].next = next_item
-      end
-      for _, item in ipairs(entity_prototypes[next_item].items_to_place_this) do
-        if not data[item.name] then data[item.name] = {} end
-        data[item.name].previous = name
+  for _, prototype in pairs(entity_prototypes) do
+    local next_entity = prototype.next_upgrade
+    local current_items = prototype.items_to_place_this
+    if next_entity and current_items then
+      local next_items = next_entity.items_to_place_this
+      if next_items then
+        -- TODO handle multiple items and both ends
+        -- this is a temporary solution
+        local current_item = current_items[1].name
+        local next_item = next_items[1].name
+        data.next[current_item] = next_item
+        data.previous[next_item] = current_item
       end
     end
   end

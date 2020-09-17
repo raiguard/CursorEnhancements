@@ -26,7 +26,7 @@ event.on_configuration_changed(function(e)
   if migration.on_config_changed(e, migrations) then
     global_data.build_global_registry()
     for i, player in pairs(game.players) do
-      player_data.update_personal_overrides(player, global.players[i])
+      player_data.refresh(player, global.players[i])
     end
   end
 end)
@@ -104,7 +104,6 @@ event.on_player_main_inventory_changed(function(e)
 
   if player_table.settings.ghost_cursor_transitions then
     local cursor_ghost = player.cursor_ghost
-
     if cursor_ghost then
       player_data.ensure_valid_inventory(player, player_table)
       local main_inventory = player_table.main_inventory

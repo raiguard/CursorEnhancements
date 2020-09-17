@@ -1,7 +1,5 @@
 local cursor = {}
 
-local event = require("__flib__.event")
-
 local player_data = require("scripts.player-data")
 
 function cursor.check_stack(cursor_stack, cursor_ghost)
@@ -58,18 +56,25 @@ end
 function cursor.scroll(player_index, direction)
   local player = game.get_player(player_index)
   local player_table = global.players[player_index]
+  local player_registry = player_table.registry
   local cursor_stack = player.cursor_stack
   local current_item = cursor.check_stack(cursor_stack, player.cursor_ghost)
 
   if current_item then
-    -- check personal registry, then the global registry
-    local registry = player_table.registry[current_item]
-    if not registry or not registry[direction] then
-      registry = global.registry[current_item]
+    local scroll_item = player_registry[direction][current_item]
+    if scroll_item == false then
+      return
+    elseif not scroll_item then
+      scroll_item = global.registry[direction][current_item]
     end
-    -- set stack
-    if registry and registry[direction] then
-      cursor.set_stack(player, cursor_stack, player_table, registry[direction])
+    if scroll_item then
+      if direction == "previous" then
+        local player_next = player_registry.next[scroll_item]
+        if player_next == false or (player_next and player_next ~= current_item) then
+          return
+        end
+      end
+      cursor.set_stack(player, cursor_stack, player_table, scroll_item)
     end
   end
 end
