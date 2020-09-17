@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 1.0.2
-Date: ????
+Date: 2020-09-17
   Changes:
     - Scrolling to an item you don't have when not in cheat mode will set the ghost for that item, regardless of whether it places an entity
       - This guarantees that all items are always accessible by scrolling, whether or not you have them
