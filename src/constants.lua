@@ -36,7 +36,10 @@ constants.default_overrides = {
     -- trains
     ["locomotive"] = "cargo-wagon",
     ["cargo-wagon"] = "fluid-wagon",
-    ["fluid-wagon"] = "artillery-wagon"
+    ["fluid-wagon"] = "artillery-wagon",
+    -- vanilla loaders
+    ["loader"] = "fast-loader",
+    ["fast-loader"] = "express-loader"
   }
 }
 
