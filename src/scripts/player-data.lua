@@ -1,5 +1,6 @@
 local player_data = {}
 
+local belts = require("belts")
 local constants = require("constants")
 
 function player_data.init(player_index, player)
@@ -26,6 +27,15 @@ function player_data.update_personal_overrides(player, player_table)
     next = {},
     previous = {}
   }
+
+  local belt_registry = belts.compute_registry(
+    player.mod_settings['cen-belt-scroll-type'].value,
+    global.registry.next,
+    player.cheat_mode
+  )
+
+  for k,v in pairs(belt_registry.next) do registry.next[k] = v end
+  for k,v in pairs(belt_registry.previous) do registry.previous[k] = v end
 
   local overrides = game.json_to_table(player.mod_settings['cen-personal-registry-overrides'].value)
   if overrides and type(overrides) == "table" then

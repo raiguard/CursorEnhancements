@@ -118,7 +118,7 @@ event.on_runtime_mod_setting_changed(function(e)
     local player = game.get_player(e.player_index)
     local player_table = global.players[e.player_index]
     player_data.update_settings(player, player_table)
-    if e.setting == "cen-personal-registry-overrides" then
+    if e.setting == "cen-personal-registry-overrides" or e.setting == "cen-belt-scroll-type" then
       player_data.update_personal_overrides(player, player_table)
     end
   end

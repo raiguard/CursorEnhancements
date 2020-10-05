@@ -24,9 +24,22 @@ data:extend{
   },
   {
     type = "string-setting",
+    name = "cen-belt-scroll-type",
+    setting_type = "runtime-per-user",
+    allowed_values = {
+      "levels",
+      "types",
+      "levels-then-types",
+      "types-then-levels"
+    },
+    default_value = "levels",
+    order = "c"
+  },
+  {
+    type = "string-setting",
     name = "cen-personal-registry-overrides",
     setting_type = "runtime-per-user",
     default_value = "{}",
-    order = "c"
+    order = "d"
   }
 }

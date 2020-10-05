@@ -24,6 +24,19 @@ Other mods can tap Cursor Enhancements' remote interface to add their own overri
 
 Additionally, each player can add their own overrides via the mod settings. See the FAQ for format instructions.
 
+#### Belt transitions
+
+Belts can be grouped in two ways:
+	- By Tier (belt, fast belt, express belt)
+	- By Category (belt, underground, splitter)
+
+By default, scrolling with a belt-type item in your cursor will scroll between tiers only. You can change this behavior to scroll by categories instead, or by a combination of both tier and category. The setting supports the following values:
+
+	- Tier (belt <-> fast belt <-> express belt)
+	- Category (belt <-> underground <-> splitter)
+	- Tier then Category (belt <-> fast belt <-> express belt <-> underground <-> fast underground ...)
+	- Category then Tier (belt <-> underground <-> splitter <-> fast belt <-> fast underground ...)
+
 ### Automatic ghost transitions
 
 If you run out of an item that places an entity, the item will be immediately swapped with the ghost cursor for that entity, and vice versa:
