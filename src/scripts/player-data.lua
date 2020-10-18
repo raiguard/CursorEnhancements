@@ -1,16 +1,11 @@
 local player_data = {}
 
-local table = require("__flib__.table")
-
 local constants = require("constants")
-
-local util = require("scripts.util")
 
 function player_data.init(player_index, player)
   global.players[player_index] = {
     flags = {
-      gui_open = false,
-      holding_item = false
+      building = false
     },
     last_item = nil,
     main_inventory = player.get_main_inventory(),
@@ -27,14 +22,37 @@ function player_data.update_settings(player, player_table)
 end
 
 function player_data.update_personal_overrides(player, player_table)
-  -- retrieve and parse personal overrides
+  local registry = {
+    next = {},
+    previous = {}
+  }
+
   local overrides = game.json_to_table(player.mod_settings['cen-personal-registry-overrides'].value)
-  if not overrides or type(overrides) == "string" then
+  if overrides and type(overrides) == "table" then
+    local item_prototypes = game.item_prototypes
+    for item, next_item in pairs(overrides) do
+      if next_item then
+        if item_prototypes[item] and item_prototypes[next_item] then
+          local stored_next_item = registry.next[item]
+          if stored_next_item then
+            registry.previous[stored_next_item] = false
+          end
+          registry.next[item] = next_item
+          registry.previous[next_item] = item
+        end
+      elseif item_prototypes[item] then
+        local stored_next_item = registry.next[item]
+        if stored_next_item then
+          registry.previous[stored_next_item] = false
+        end
+        registry.next[item] = false
+      end
+    end
+  else
     player.print{'cen-message.invalid-personal-overrides-format'}
-    overrides = {}
   end
-  -- convert to registry and save
-  player_table.registry = util.apply_overrides({}, overrides, game.item_prototypes)
+
+  player_table.registry = registry
 end
 
 function player_data.refresh(player, player_table)
