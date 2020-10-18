@@ -61,7 +61,7 @@ event.on_player_removed(function(e)
   global.players[e.player_index] = nil
 end)
 
-event.on_put_item(function(e)
+event.on_pre_build(function(e)
   global.players[e.player_index].flags.building = true
 end)
 
