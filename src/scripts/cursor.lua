@@ -12,6 +12,7 @@ function cursor.check_stack(cursor_stack, cursor_ghost)
   end
 end
 
+-- TODO this does not work with complex items
 function cursor.set_stack(player, cursor_stack, player_table, item_name)
   local is_cheating = player.cheat_mode or (player.controller_type == defines.controllers.editor)
   local spawn_item = player_table.settings.spawn_items_when_cheating
