@@ -69,25 +69,25 @@ event.on_player_cursor_stack_changed(function(e)
   local player = game.get_player(e.player_index)
   local player_table = global.players[e.player_index]
 
-  if player_table.flags.building then
-    player_table.flags.building = false
+  local cursor_stack = player.cursor_stack
+  local current_item = cursor.check_stack(cursor_stack, player.cursor_ghost)
 
-    local cursor_stack = player.cursor_stack
-    local current_item = cursor_stack and cursor_stack.valid_for_read and cursor_stack.name
-
-    if current_item then
-      player_table.last_item = current_item
-    elseif
-      player_table.settings.ghost_cursor_transitions
-      and not player.cursor_ghost
-    then
-      local last_item = player_table.last_item
-      if last_item then
-        player_data.ensure_valid_inventory(player, player_table)
-        if player_table.main_inventory.get_item_count(last_item) == 0 then
-          local entity = game.item_prototypes[last_item].place_result
-          if entity then
-            cursor.set_stack(player, cursor_stack, player_table, last_item)
+  if current_item then
+    player_table.last_item = current_item
+    if player_table.flags.building then
+      player_table.flags.building = false
+      if
+        player_table.settings.ghost_cursor_transitions
+        and not player.cursor_ghost
+      then
+        local last_item = player_table.last_item
+        if last_item then
+          player_data.ensure_valid_inventory(player, player_table)
+          if player_table.main_inventory.get_item_count(last_item) == 0 then
+            local entity = game.item_prototypes[last_item].place_result
+            if entity then
+              cursor.set_stack(player, cursor_stack, player_table, last_item)
+            end
           end
         end
       end

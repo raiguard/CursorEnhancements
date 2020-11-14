@@ -1,3 +1,5 @@
 Features:
   - Added item name labels when scrolling between items
   - Added tips and tricks entries
+Bugfixes:
+  - Fixed the "retrieve last item" functionality to include cursor ghosts
