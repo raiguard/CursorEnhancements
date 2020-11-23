@@ -1,9 +1,9 @@
 {
   "name": "CursorEnhancements",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "title": "Cursor Enhancements",
   "author": "raiguard",
-  "factorio_version": "1.0",
-  "dependencies": ["base >= 1.0.0", "flib >= 0.4.0", "(?) space-exploration"],
+  "factorio_version": "1.1",
+  "dependencies": ["base >= 1.1.0", "flib >= 0.6.0", "(?) space-exploration"],
   "description": "Enhances the cursor with a variety of tools and shortcuts. Recall the last held item, scroll between related items, and seamlessly switch between real items and the ghost cursor."
 }

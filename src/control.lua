@@ -76,10 +76,7 @@ event.on_player_cursor_stack_changed(function(e)
     player_table.last_item = current_item
     if player_table.flags.building then
       player_table.flags.building = false
-      if
-        player_table.settings.ghost_cursor_transitions
-        and not player.cursor_ghost
-      then
+      if player_table.settings.ghost_cursor_transitions and not player.cursor_ghost then
         local last_item = player_table.last_item
         if last_item then
           player_data.ensure_valid_inventory(player, player_table)
