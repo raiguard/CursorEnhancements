@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 1.1.0
-Date: ????
+Date: 2020-11-23
   Features:
     - Added flying text when scrolling between items
   Changes:
