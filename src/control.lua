@@ -74,20 +74,10 @@ event.on_player_cursor_stack_changed(function(e)
 
   if current_item then
     player_table.last_item = current_item
-    if player_table.flags.building then
-      player_table.flags.building = false
-      if player_table.settings.ghost_cursor_transitions and not player.cursor_ghost then
-        local last_item = player_table.last_item
-        if last_item then
-          player_data.ensure_valid_inventory(player, player_table)
-          if player_table.main_inventory.get_item_count(last_item) == 0 then
-            local entity = game.item_prototypes[last_item].place_result
-            if entity then
-              cursor.set_stack(player, cursor_stack, player_table, last_item)
-            end
-          end
-        end
-      end
+  elseif player_table.flags.building then
+    player_table.flags.building = false
+    if player_table.settings.ghost_cursor_transitions then
+      cursor.set_stack(player, cursor_stack, player_table, player_table.last_item)
     end
   end
 end)
