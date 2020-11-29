@@ -75,11 +75,12 @@ event.on_player_cursor_stack_changed(function(e)
   if current_item then
     player_table.last_item = current_item
   elseif player_table.flags.building then
-    player_table.flags.building = false
     if player_table.settings.ghost_cursor_transitions then
       cursor.set_stack(player, cursor_stack, player_table, player_table.last_item)
     end
   end
+
+  player_table.flags.building = false
 end)
 
 event.on_player_main_inventory_changed(function(e)
