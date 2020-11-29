@@ -1,6 +1,8 @@
 ---------------------------------------------------------------------------------------------------
 Version: 1.1.2
 Date: ????
+  Features:
+    - Added cursor scrolls for vanilla tiles (landfill, stone brick, concrete)
   Bugfixes:
     - Fixed the need to clear cursor twice after placing an entity
 ---------------------------------------------------------------------------------------------------

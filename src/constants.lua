@@ -36,7 +36,13 @@ constants.default_overrides = {
     -- trains
     ["locomotive"] = "cargo-wagon",
     ["cargo-wagon"] = "fluid-wagon",
-    ["fluid-wagon"] = "artillery-wagon"
+    ["fluid-wagon"] = "artillery-wagon",
+    -- tiles
+    ["landfill"] = "stone-brick",
+    ["stone-brick"] = "concrete",
+    ["concrete"] = "hazard-concrete",
+    ["hazard-concrete"] = "refined-concrete",
+    ["refined-concrete"] = "hazard-refined-concrete"
   }
 }
 
