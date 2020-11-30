@@ -4,9 +4,7 @@ local constants = require("constants")
 
 function player_data.init(player_index, player)
   global.players[player_index] = {
-    flags = {
-      building = false
-    },
+    last_build_tick = 0,
     last_item = nil,
     main_inventory = player.get_main_inventory(),
     settings = {}

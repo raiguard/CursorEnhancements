@@ -62,7 +62,7 @@ event.on_player_removed(function(e)
 end)
 
 event.on_pre_build(function(e)
-  global.players[e.player_index].flags.building = true
+  global.players[e.player_index].last_build_tick = game.tick
 end)
 
 event.on_player_cursor_stack_changed(function(e)
@@ -74,13 +74,11 @@ event.on_player_cursor_stack_changed(function(e)
 
   if current_item then
     player_table.last_item = current_item
-  elseif player_table.flags.building then
+  elseif player_table.last_build_tick == game.tick then
     if player_table.settings.ghost_cursor_transitions then
       cursor.set_stack(player, cursor_stack, player_table, player_table.last_item)
     end
   end
-
-  player_table.flags.building = false
 end)
 
 event.on_player_main_inventory_changed(function(e)

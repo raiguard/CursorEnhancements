@@ -42,7 +42,7 @@ constants.default_overrides = {
     ["stone-brick"] = "concrete",
     ["concrete"] = "hazard-concrete",
     ["hazard-concrete"] = "refined-concrete",
-    ["refined-concrete"] = "hazard-refined-concrete"
+    ["refined-concrete"] = "refined-hazard-concrete"
   }
 }
 
