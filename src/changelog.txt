@@ -29,9 +29,11 @@ Date: 2020-11-26
 Version: 1.1.0
 Date: 2020-11-23
   Features:
-    - Added flying text when scrolling between items
+    - Added item name labels when scrolling between items
   Changes:
     - Updated to Factorio 1.1
+  Bugfixes:
+    - Fixed the "retrieve last item" functionality to include cursor ghosts
 ---------------------------------------------------------------------------------------------------
 Version: 1.0.2
 Date: 2020-09-17
