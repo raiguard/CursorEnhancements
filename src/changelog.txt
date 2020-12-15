@@ -1,7 +1,8 @@
 ---------------------------------------------------------------------------------------------------
 Version: 1.1.4
 Date: ????
-  Changes:
+  Bugfixes:
+    - Fixed being unable to clear the cursor after building something while the tick is paused
 ---------------------------------------------------------------------------------------------------
 Version: 1.1.3
 Date: 2020-11-30
