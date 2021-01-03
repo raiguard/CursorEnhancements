@@ -86,7 +86,7 @@ event.on_player_removed(function(e)
   global.players[e.player_index] = nil
 end)
 
-event.on_pre_build(function(e)
+event.register({defines.events.on_player_built_tile, defines.events.on_pre_build}, function(e)
   global.players[e.player_index].last_build_tick = game.ticks_played
 end)
 

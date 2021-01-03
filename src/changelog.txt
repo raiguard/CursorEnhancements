@@ -2,6 +2,7 @@
 Version: 1.2.0
 Date: ????
   Features:
+    - Added ghost cursor transitions for tiles
     - Added tile pipette function
   Bugfixes:
     - Removed unused "transfer stack from network" custom-input
