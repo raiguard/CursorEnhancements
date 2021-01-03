@@ -7,7 +7,6 @@ Cursor Enhancements is a mod for Factorio that adds new features to the cursor.
 ## Features
 
 Cursor Enhancements "enhances" the cursor with these new features:
-
 ### Related items scrolling
 
 Using `shift + mousewheel`, you can quickly scroll between related items:
@@ -35,6 +34,12 @@ If you are in cheat mode or the map editor, a new stack of items will be spawned
 ### Recall last item
 
 Hit `Shift + Q` to recall the last item that was in your cursor. If you are out of that item, the ghost cursor will be set, or a new stack will be spawned if you're in cheat mode or the editor.
+
+### Tile pipette
+
+Using the pipette key (default `Q`) on a tile with no entity selected and nothing in the cursor will put the tile's item into your cursor if you have it, or spawn it when cheating.
+
+![](resources/tile-pipette.gif)
 
 ## FAQ
 
