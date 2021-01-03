@@ -16,11 +16,5 @@ data:extend{
     name = "cen-scroll-previous",
     key_sequence = "SHIFT + mouse-wheel-down",
     order = "c"
-  },
-  {
-    type = "custom-input",
-    name = "cen-transfer-stack-from-network",
-    key_sequence = "ALT + mouse-button-1",
-    order = "d"
   }
 }
