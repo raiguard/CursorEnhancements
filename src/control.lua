@@ -53,7 +53,7 @@ event.register("cen-smart-pipette", function(e)
   local player_table = global.players[e.player_index]
   if player_table.settings.tile_pipette then
     local cursor_stack = player.cursor_stack
-    if cursor_stack and not cursor_stack.valid_for_read and not player.selected then
+    if cursor_stack and not cursor_stack.valid_for_read and not player.cursor_ghost and not player.selected then
       local cursor_position = e.cursor_position
       local tile_area = {
         left_top = {x = math.floor(cursor_position.x), y = math.floor(cursor_position.y)},
@@ -66,6 +66,9 @@ event.register("cen-smart-pipette", function(e)
           local item = items_to_place_this[1]
           if item then
             cursor.set_stack(player, cursor_stack, global.players[e.player_index], item.name)
+            player.play_sound{
+              path = "utility/smart_pipette"
+            }
           end
         end
       end

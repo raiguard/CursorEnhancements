@@ -1,7 +1,10 @@
 ---------------------------------------------------------------------------------------------------
 Version: 1.2.1
 Date: ????
-  Changes:
+  Features:
+    - Tile pipette now plays the pipette sound
+  Bugfixes:
+    - Fixed tile pipette activating if a cursor ghost was present
 ---------------------------------------------------------------------------------------------------
 Version: 1.2.0
 Date: 2021-01-03
