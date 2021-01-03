@@ -28,5 +28,12 @@ data:extend{
     setting_type = "runtime-per-user",
     default_value = "{}",
     order = "c"
+  },
+  {
+    type = "bool-setting",
+    name = "cen-enable-tile-pipette",
+    setting_type = "runtime-per-user",
+    default_value = true,
+    order = "d"
   }
 }

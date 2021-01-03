@@ -58,7 +58,8 @@ constants.path_frame_max_rows = 3
 
 constants.setting_name_mapping = {
   ["cen-spawn-items-when-cheating"] = "spawn_items_when_cheating",
-  ["cen-ghost-cursor-transitions"] = "ghost_cursor_transitions"
+  ["cen-ghost-cursor-transitions"] = "ghost_cursor_transitions",
+  ["cen-enable-tile-pipette"] = "tile_pipette"
 }
 
 return constants

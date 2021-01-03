@@ -48,6 +48,31 @@ event.register("cen-recall-last-item", function(e)
   end
 end)
 
+event.register("cen-smart-pipette", function(e)
+  local player = game.get_player(e.player_index)
+  local player_table = global.players[e.player_index]
+  if player_table.settings.tile_pipette then
+    local cursor_stack = player.cursor_stack
+    if cursor_stack and not cursor_stack.valid_for_read and not player.selected then
+      local cursor_position = e.cursor_position
+      local tile_area = {
+        left_top = {x = math.floor(cursor_position.x), y = math.floor(cursor_position.y)},
+        right_bottom = {x = math.ceil(cursor_position.x), y = math.ceil(cursor_position.y)},
+      }
+      local tile = player.surface.find_tiles_filtered{area = tile_area}[1]
+      if tile and tile.valid then
+        local items_to_place_this = tile.prototype.items_to_place_this
+        if items_to_place_this then
+          local item = items_to_place_this[1]
+          if item then
+            cursor.set_stack(player, cursor_stack, global.players[e.player_index], item.name)
+          end
+        end
+      end
+    end
+  end
+end)
+
 -- PLAYER
 
 event.on_player_created(function(e)
