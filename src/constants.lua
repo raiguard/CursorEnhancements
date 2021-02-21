@@ -1,5 +1,14 @@
 local constants = {}
 
+constants.blacklisted_item_types = {
+  ["blueprint"] = true,
+  ["blueprint-book"] = true,
+  ["copy-paste-tool"] = true,
+  ["deconstruction-item"] = true,
+  ["selection-tool"] = true,
+  ["upgrade-item"] = true
+}
+
 constants.default_overrides = {
   ["base"] = {
     -- circuits

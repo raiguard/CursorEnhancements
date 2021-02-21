@@ -102,10 +102,13 @@ event.on_player_cursor_stack_changed(function(e)
 
   if current_item then
     player_table.last_item = current_item
-  elseif player_table.last_build_tick == game.ticks_played then
-    if player_table.settings.ghost_cursor_transitions then
-      cursor.set_stack(player, cursor_stack, player_table, player_table.last_item)
-    end
+  elseif
+    player_table.last_item
+    and not constants.blacklisted_item_types[game.item_prototypes[player_table.last_item].type]
+    and player_table.last_build_tick == game.ticks_played
+    and player_table.settings.ghost_cursor_transitions
+  then
+    cursor.set_stack(player, cursor_stack, player_table, player_table.last_item)
   end
 end)
 

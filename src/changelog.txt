@@ -2,6 +2,7 @@
 Version: 1.2.2
 Date: ????
   Changes:
+    - Selection tools, such as blueprints, will be ignored for cursor ghost transitions and recall last item
 ---------------------------------------------------------------------------------------------------
 Version: 1.2.1
 Date: 2021-01-03
