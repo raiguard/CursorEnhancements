@@ -41,7 +41,8 @@ end)
 event.register("cen-recall-last-item", function(e)
   local player = game.get_player(e.player_index)
   local player_table = global.players[e.player_index]
-  if player_table.last_item
+  if
+    player_table.last_item
     and not cursor.set_stack(player, player.cursor_stack, player_table, player_table.last_item)
   then
     player.print{"cen-message.unable-to-recall"}
