@@ -34,7 +34,7 @@ end)
 -- INPUTS
 
 event.register(constants.item_scroll_input_names, function(e)
-  local _, _, direction = string.find(e.input_name, "^cen-%-scroll%-(%a*)$")
+  local _, _, direction = string.find(e.input_name, "^cen%-scroll%-(%a*)$")
   cursor.scroll(e.player_index, direction)
 end)
 
