@@ -7,7 +7,7 @@ function player_data.init(player_index, player)
     last_build_tick = 0,
     last_item = nil,
     main_inventory = player.get_main_inventory(),
-    settings = {}
+    settings = {},
   }
 end
 
@@ -22,10 +22,10 @@ end
 function player_data.update_personal_overrides(player, player_table)
   local registry = {
     next = {},
-    previous = {}
+    previous = {},
   }
 
-  local overrides = game.json_to_table(player.mod_settings['cen-personal-registry-overrides'].value)
+  local overrides = game.json_to_table(player.mod_settings["cen-personal-registry-overrides"].value)
   if overrides and type(overrides) == "table" then
     local item_prototypes = game.item_prototypes
     for item, next_item in pairs(overrides) do
@@ -47,7 +47,7 @@ function player_data.update_personal_overrides(player, player_table)
       end
     end
   else
-    player.print{'cen-message.invalid-personal-overrides-format'}
+    player.print({ "cen-message.invalid-personal-overrides-format" })
   end
 
   player_table.registry = registry

@@ -12,5 +12,5 @@ return {
       player_table.flags = nil
       player_table.last_build_tick = 0
     end
-  end
+  end,
 }

@@ -6,7 +6,7 @@ constants.blacklisted_item_types = {
   ["copy-paste-tool"] = true,
   ["deconstruction-item"] = true,
   ["selection-tool"] = true,
-  ["upgrade-item"] = true
+  ["upgrade-item"] = true,
 }
 
 constants.default_overrides = {
@@ -51,8 +51,8 @@ constants.default_overrides = {
     ["stone-brick"] = "concrete",
     ["concrete"] = "hazard-concrete",
     ["hazard-concrete"] = "refined-concrete",
-    ["refined-concrete"] = "refined-hazard-concrete"
-  }
+    ["refined-concrete"] = "refined-hazard-concrete",
+  },
 }
 
 constants.interface_version = 1
@@ -68,7 +68,7 @@ constants.path_frame_max_rows = 3
 constants.setting_name_mapping = {
   ["cen-spawn-items-when-cheating"] = "spawn_items_when_cheating",
   ["cen-ghost-cursor-transitions"] = "ghost_cursor_transitions",
-  ["cen-enable-tile-pipette"] = "tile_pipette"
+  ["cen-enable-tile-pipette"] = "tile_pipette",
 }
 
 return constants

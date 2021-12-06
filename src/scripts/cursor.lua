@@ -32,19 +32,19 @@ function cursor.set_stack(player, cursor_stack, player_table, item_name)
     if player.clear_cursor() then
       -- actually transfer from the main inventory, then set the hand location
       cursor_stack.transfer_stack(item_stack)
-      player.hand_location = {inventory=main_inventory.index, slot=item_stack_index}
+      player.hand_location = { inventory = main_inventory.index, slot = item_stack_index }
     end
     return true
   elseif spawn_item and is_cheating then
-    local stack_spec = {name=item_name, count=game.item_prototypes[item_name].stack_size}
+    local stack_spec = { name = item_name, count = game.item_prototypes[item_name].stack_size }
     -- insert into main inventory first, then transfer and set the hand location
     if main_inventory.can_insert(stack_spec) and player.clear_cursor() then
       main_inventory.insert(stack_spec)
       local new_stack, new_stack_index = main_inventory.find_item_stack(item_name)
       cursor_stack.transfer_stack(new_stack)
-      player.hand_location = {inventory=main_inventory.index, slot=new_stack_index}
+      player.hand_location = { inventory = main_inventory.index, slot = new_stack_index }
     else
-      player.print{"cen-message.main-inventory-full"}
+      player.print({ "cen-message.main-inventory-full" })
     end
     return true
   elseif player.clear_cursor() then
@@ -77,10 +77,10 @@ function cursor.scroll(player_index, direction)
       end
       cursor.set_stack(player, cursor_stack, player_table, scroll_item)
       -- create flying text
-      player.create_local_flying_text{
+      player.create_local_flying_text({
         text = game.item_prototypes[scroll_item].localised_name,
-        create_at_cursor = true
-      }
+        create_at_cursor = true,
+      })
     end
   end
 end

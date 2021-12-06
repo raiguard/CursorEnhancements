@@ -16,7 +16,7 @@ function global_data.build_global_registry()
   local item_prototypes = game.item_prototypes
   local registry = {
     next = {},
-    previous = {}
+    previous = {},
   }
 
   -- auto-generated
