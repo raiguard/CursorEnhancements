@@ -53,6 +53,30 @@ constants.default_overrides = {
     ["hazard-concrete"] = "refined-concrete",
     ["refined-concrete"] = "refined-hazard-concrete",
   },
+  ["deadlock-beltboxes-loaders"] = {
+    ["express-transport-belt-loader"] = "ultra-fast-belt-loader",
+    ["ultra-fast-belt-loader"] = "extreme-fast-belt-loader",
+    ["extreme-fast-belt-loader"] = "ultra-express-belt-loader",
+    ["ultra-express-belt-loader"] = "extreme-express-belt-loader",
+    ["extreme-express-belt-loader"] = "ultimate-belt-loader",
+  },
+  ["UltimateBelts"] = {
+    ["express-transport-belt"] = "ultra-fast-belt",
+    ["ultra-fast-belt"] = "extreme-fast-belt",
+    ["extreme-fast-belt"] = "ultra-express-belt",
+    ["ultra-express-belt"] = "extreme-express-belt",
+    ["extreme-express-belt"] = "ultimate-belt",
+    ["express-underground-belt"] = "ultra-fast-underground-belt",
+    ["ultra-fast-underground-belt"] = "extreme-fast-underground-belt",
+    ["extreme-fast-underground-belt"] = "ultra-express-underground-belt",
+    ["ultra-express-underground-belt"] = "extreme-express-underground-belt",
+    ["extreme-express-underground-belt"] = "original-ultimate-underground-belt",
+    ["express-splitter"] = "ultra-fast-splitter",
+    ["ultra-fast-splitter"] = "extreme-fast-splitter",
+    ["extreme-fast-splitter"] = "ultra-express-splitter",
+    ["ultra-express-splitter"] = "extreme-express-splitter",
+    ["extreme-express-splitter"] = "original-ultimate-splitter",
+  },
 }
 
 constants.interface_version = 1
