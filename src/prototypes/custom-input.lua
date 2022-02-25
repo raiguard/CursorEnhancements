@@ -19,22 +19,8 @@ data:extend({
   },
   {
     type = "custom-input",
-    name = "cen-linked-smart-pipette",
+    name = "cen-smart-pipette",
     key_sequence = "",
     linked_game_control = "smart-pipette",
-  },
-  {
-    type = "custom-input",
-    name = "cen-linked-drop-cursor",
-    key_sequence = "",
-    linked_game_control = "drop-cursor",
-    include_selected_prototype = true,
-  },
-  {
-    type = "custom-input",
-    name = "cen-linked-pick-items",
-    key_sequence = "",
-    linked_game_control = "pick-items",
-    include_selected_prototype = true,
   },
 })

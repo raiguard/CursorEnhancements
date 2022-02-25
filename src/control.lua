@@ -49,7 +49,7 @@ event.register("cen-recall-last-item", function(e)
   end
 end)
 
-event.register("cen-linked-smart-pipette", function(e)
+event.register("cen-smart-pipette", function(e)
   local player = game.get_player(e.player_index)
   local player_table = global.players[e.player_index]
   if player_table.settings.tile_pipette then
@@ -72,62 +72,6 @@ event.register("cen-linked-smart-pipette", function(e)
             })
           end
         end
-      end
-    end
-  end
-end)
-
-event.register({ "cen-linked-drop-cursor", "cen-linked-pick-items" }, function(e)
-  local player = game.get_player(e.player_index)
-  local selected_prototype = e.selected_prototype
-  if
-    selected_prototype
-    and selected_prototype.base_type == "item"
-    and player.opened_gui_type == defines.gui_type.entity
-  then
-    local entity = player.opened
-    if not entity or not entity.valid then
-      return
-    end
-    -- Get inventories
-    local player_inventory = player.get_main_inventory()
-    if not player_inventory or not player_inventory.valid then
-      return
-    end
-    --- @type LuaInventory
-    local entity_inventory
-    local entity_type = entity.type
-    if entity_type == "assembling-machine" then
-      entity_inventory = entity.get_inventory(defines.inventory.assembling_machine_input)
-    elseif entity_type == "furnace" then
-      entity_inventory = entity.get_inventory(defines.inventory.furnace_source)
-    elseif
-      entity_type == "container"
-      or entity_type == "logistic-container"
-      or entity_type == "infinity-container"
-      or entity_type == "cargo-wagon"
-    then
-      entity_inventory = entity.get_inventory(defines.inventory.chest)
-    end
-    if not entity_inventory or not entity_inventory.valid then
-      return
-    end
-    -- Sort inventories
-    --- @type LuaInventory
-    local destination_inventory, source_inventory
-    if string.find(e.input_name, "drop") then
-      destination_inventory = entity_inventory
-      source_inventory = player_inventory
-    else
-      destination_inventory = player_inventory
-      source_inventory = entity_inventory
-    end
-    -- Transfer
-    local item_name = selected_prototype.name
-    if source_inventory.get_item_count(item_name) > 0 then
-      local inserted = destination_inventory.insert({ name = item_name, count = 1 })
-      if inserted > 0 then
-        source_inventory.remove({ name = item_name, count = inserted })
       end
     end
   end
