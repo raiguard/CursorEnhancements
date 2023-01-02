@@ -4,7 +4,10 @@ local util = {}
 --- @param player LuaPlayer
 --- @return boolean
 function util.is_cheating(player)
-	if player.cheat_mode and not script.active_mods["space-exploration"] then
+	if
+		player.cheat_mode
+		and not (player.controller_type == defines.controllers.god and script.active_mods["space-exploration"])
+	then
 		return true
 	end
 	return player.controller_type == defines.controllers.editor
@@ -25,17 +28,12 @@ function util.set_cursor(player, item)
 	local inventory_stack, stack_index = inventory.find_item_stack(item)
 	if not inventory_stack or not stack_index then
 		local stack_size = game.item_prototypes[item].stack_size
-		if not util.is_cheating(player) then
-			player.cursor_ghost = item
-			return true
-		elseif
-			player.mod_settings["cen-spawn-items-when-cheating"].value
-			and inventory.can_insert({ name = item, count = stack_size })
-		then
+		if util.is_cheating(player) and inventory.can_insert({ name = item, count = stack_size }) then
 			inventory.insert({ name = item, count = stack_size })
 			inventory_stack, stack_index = inventory.find_item_stack(item)
 		else
-			return false
+			player.cursor_ghost = item
+			return true
 		end
 	end
 	--- @cast inventory_stack LuaItemStack

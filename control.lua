@@ -1,5 +1,6 @@
 local handler = require("__core__/lualib/event_handler")
 
+handler.add_lib(require("__CursorEnhancements__/auto-ghost-cursor"))
 handler.add_lib(require("__CursorEnhancements__/tile-pipette"))
 
 -- local event = require("__flib__.event")
