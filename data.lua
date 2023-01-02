@@ -19,7 +19,7 @@ data:extend({
 	},
 	{
 		type = "custom-input",
-		name = "cen-smart-pipette",
+		name = "cen-linked-smart-pipette",
 		key_sequence = "",
 		linked_game_control = "smart-pipette",
 	},
