@@ -41,10 +41,15 @@ function util.set_cursor(player, item)
 	if not cursor_stack.transfer_stack(inventory_stack) then
 		return false
 	end
-	player.hand_location = {
-		inventory = defines.inventory.character_main,
-		slot = stack_index,
-	}
+	local inventory_def
+	if player.controller_type == defines.controllers.character then
+		inventory_def = defines.inventory.character_main
+	elseif player.controller_type == defines.controllers.editor then
+		inventory_def = defines.inventory.editor_main
+	elseif player.controller_type == defines.controllers.god then
+		inventory_def = defines.inventory.god_main
+	end
+	player.hand_location = { inventory = inventory_def, slot = stack_index }
 	return true
 end
 
