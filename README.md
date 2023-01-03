@@ -1,56 +1,46 @@
+[![shield](https://img.shields.io/badge/Ko--fi-Donate%20-hotpink?logo=kofi&logoColor=white)](https://ko-fi.com/raiguard)
+[![shield](https://img.shields.io/badge/Crowdin-Translate-brightgreen)](https://crowdin.com/project/raiguards-factorio-mods)
+[![shield](https://img.shields.io/badge/dynamic/json?color=orange&label=Factorio&query=downloads_count&suffix=%20downloads&url=https%3A%2F%2Fmods.factorio.com%2Fapi%2Fmods%2FCursorEnhancements)](https://mods.factorio.com/mod/CursorEnhancements)
+
 # Cursor Enhancements
 
-Cursor Enhancements is a mod for Factorio that adds new features to the cursor.
+Enhances the cursor with many useful capabilities and features.
+
+## Installation
 
 [Download on the Mod Portal.](https://mods.factorio.com/mod/CursorEnhancements)
 
+## Contributing
+
+[Report bugs or ask questions](https://lists.sr.ht/~raiguard/factorio-mods-discuss)
+
+[Submit patches](https://lists.sr.ht/~raiguard/factorio-mods-devel)
+
 ## Features
 
-Cursor Enhancements "enhances" the cursor with these new features:
-### Related items scrolling
+*Automatic ghost cursor*: When the item in your cursor runs out, replace it
+with the ghost cursor. Replace the ghost cursor with a real item when it enters
+your inventory.
 
-Using `shift + mousewheel`, you can quickly scroll between related items:
+*Quick-craft*: Use `control + Q` while selecting an entity or GUI object to
+craft up to five of that object's recipe.
 
-![](resources/cursor-scrolling.gif)
+*Recall last item*: Use `shift + Q` to recall the last item that was in your
+cursor.
 
-If you don't have an item when you scroll to it, the ghost cursor will be set instead. If you are in cheat mode or the map editor, instead of setting the ghost cursor, you will be given a new stack of that item for free.
+*Scroll item subgroup*: Use `shift + mousewhell up` and `shift + mousewheel
+down` to switch between different items in the same subgroup.
 
-The mod will auto-detect an entity's upgrades and downgrades and automatically set paths for those, but other mods can override these paths. For example, Cursor Enhancements itself adds various custom paths, including one for electric poles and one for inserters:
-
-![](resources/cursor-scrolling-2.gif)
-
-Other mods can tap Cursor Enhancements' remote interface to add their own overrides. See the [Remote Interface documentation](https://github.com/raiguard/Factorio-CursorEnhancements/wiki/Remote-Interface-Documentation) for instructions.
-
-Additionally, each player can add their own overrides via the mod settings. See the FAQ for format instructions.
-
-### Automatic ghost transitions
-
-If you run out of an item that places an entity, the item will be immediately swapped with the ghost cursor for that entity, and vice versa:
-
-![](resources/ghost-transitions.gif)
-
-If you are in cheat mode or the map editor, a new stack of items will be spawned into your cursor instead of setting the ghost cursor.
-
-### Recall last item
-
-Hit `Shift + Q` to recall the last item that was in your cursor. If you are out of that item, the ghost cursor will be set, or a new stack will be spawned if you're in cheat mode or the editor.
-
-### Tile pipette
-
-Using the pipette key (default `Q`) on a tile with no entity selected and nothing in the cursor will put the tile's item into your cursor if you have it, or spawn it when cheating.
-
-![](resources/tile-pipette.gif)
+*Smarter pipette*: Use the pipette key (default `Q`) on any entity or GUI
+object to pick the item related to that object. For example, use the pipette on
+a recipe in the crafting menu to pick the item that that recipe produces.
 
 ## FAQ
 
 **Q: Why does the camera zoom when I'm scrolling between items?**
 
-A: This is due to the default keybindings for zoom. Go into your controls settings and **unbind** zooming from `shift + mousewheel`. This will fix the problem.
+A: This is due to the default keybindings for zoom. Go into your controls
+settings and **unbind** zooming from `shift + mousewheel`. This will fix the
+problem.
 
-![](./resources/controls.png)
-
-**Q: How do I add my own cursor scrolling overrides?**
-
-A: Go into the per-player mod settings and search for the `Personal registry overrides` option. This option is formatted as a JSON object, with the format `"item-name": "next-item-name"`. For example, to switch between iron plates and copper plates, you would add `"iron-plate": "copper-plate"` to the object. You can also negate an item's scroll by inputting `false` as the next item. For example, `"transport-belt": false` will disable scrolling between transport belts and fast transport belts.
-
-![](./resources/personal-registry.png)
+![](./screenshots/zoom.jpg)
