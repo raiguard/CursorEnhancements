@@ -31,9 +31,10 @@ cursor.
 *Scroll item subgroup*: Use `shift + mousewhell up` and `shift + mousewheel
 down` to switch between different items in the same subgroup.
 
-*Smarter pipette*: Use the pipette key (default `Q`) on any entity or GUI
-object to pick the item related to that object. For example, use the pipette on
-a recipe in the crafting menu to pick the item that that recipe produces.
+*Smarter pipette*: Use the pipette key (default `Q`) on any entity, tile, or
+GUI object to pick the item related to that object. For example, use the
+pipette on a recipe in the crafting menu to pick the item that that recipe
+produces.
 
 ## FAQ
 
