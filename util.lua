@@ -24,9 +24,12 @@ function util.get_cursor_item(player)
 	return cursor_stack.name or cursor_ghost.name
 end
 
---- @param selected SelectedPrototypeData
+--- @param selected SelectedPrototypeData?
 --- @return string?
 function util.get_selected_item(selected)
+	if not selected then
+		return
+	end
 	local type = selected.base_type
 	if type == "item" then
 		return selected.name
@@ -45,9 +48,12 @@ function util.get_selected_item(selected)
 	end
 end
 
---- @param selected SelectedPrototypeData
+--- @param selected SelectedPrototypeData?
 --- @return string?
 function util.get_selected_recipe(selected)
+	if not selected then
+		return
+	end
 	if selected.base_type == "recipe" then
 		return selected.name
 	end

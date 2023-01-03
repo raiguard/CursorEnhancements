@@ -25,5 +25,6 @@ data:extend({
 		name = "cen-linked-smart-pipette",
 		key_sequence = "",
 		linked_game_control = "smart-pipette",
+		include_selected_prototype = true,
 	},
 })
