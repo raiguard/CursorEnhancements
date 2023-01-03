@@ -1,9 +1,18 @@
 local util = require("__CursorEnhancements__/util")
 
+local crafting_controllers = {
+	[defines.controllers.character] = true,
+	[defines.controllers.god] = true,
+}
+
 --- @param e EventData.CustomInputEvent
 local function on_quick_craft(e)
 	local player = game.get_player(e.player_index)
 	if not player then
+		return
+	end
+
+	if not crafting_controllers[player.controller_type] then
 		return
 	end
 
