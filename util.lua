@@ -30,7 +30,7 @@ function util.get_selected_item(selected)
 	elseif type == "recipe" then
 		local recipe = game.recipe_prototypes[selected.name]
 		local product = recipe.products[1]
-		if product then
+		if product and product.type == "item" then
 			return product.name
 		end
 	end
