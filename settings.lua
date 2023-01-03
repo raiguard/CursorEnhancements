@@ -11,10 +11,4 @@ data:extend({
 		setting_type = "runtime-per-user",
 		default_value = "{}",
 	},
-	{
-		type = "bool-setting",
-		name = "cen-enable-tile-pipette",
-		setting_type = "runtime-per-user",
-		default_value = true,
-	},
 })

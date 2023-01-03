@@ -9,9 +9,9 @@ local function on_smart_pipette(e)
 		return
 	end
 
-	-- Let the base game handle entities
-	local selected = player.selected
-	if selected and selected.valid then
+	-- Don't override base game logic
+	local cursor_stack = player.cursor_stack
+	if not cursor_stack or cursor_stack.valid_for_read then
 		return
 	end
 
