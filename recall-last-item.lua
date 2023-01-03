@@ -22,12 +22,7 @@ local function on_player_cursor_stack_changed(e)
 		return
 	end
 
-	local cursor_stack = player.cursor_stack
-	if not cursor_stack or not cursor_stack.valid_for_read then
-		cursor_stack = {}
-	end
-	local cursor_ghost = player.cursor_ghost or {}
-	local item = cursor_stack.name or cursor_ghost.name
+	local item = util.get_cursor_item(player)
 	if not item then
 		return
 	end

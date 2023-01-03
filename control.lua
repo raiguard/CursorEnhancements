@@ -1,6 +1,7 @@
 local handler = require("__core__/lualib/event_handler")
 
 handler.add_lib(require("__CursorEnhancements__/auto-ghost-cursor"))
+handler.add_lib(require("__CursorEnhancements__/quick-craft"))
 handler.add_lib(require("__CursorEnhancements__/recall-last-item"))
 handler.add_lib(require("__CursorEnhancements__/tile-pipette"))
 

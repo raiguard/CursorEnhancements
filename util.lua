@@ -14,6 +14,59 @@ function util.is_cheating(player)
 end
 
 --- @param player LuaPlayer
+--- @return string?
+function util.get_cursor_item(player)
+	local cursor_stack = player.cursor_stack
+	if not cursor_stack or not cursor_stack.valid_for_read then
+		cursor_stack = {}
+	end
+	local cursor_ghost = player.cursor_ghost or {}
+	return cursor_stack.name or cursor_ghost.name
+end
+
+--- @param selected SelectedPrototypeData
+--- @return string?
+function util.get_selected_item(selected)
+	local type = selected.base_type
+	if type == "item" then
+		return selected.name
+	elseif type == "entity" then
+		local entity = game.entity_prototypes[selected.name]
+		local item = entity.items_to_place_this[1]
+		if item then
+			return item.name
+		end
+	elseif type == "recipe" then
+		local recipe = game.recipe_prototypes[selected.name]
+		local product = recipe.products[1]
+		if product then
+			return product.name
+		end
+	end
+end
+
+--- @param selected SelectedPrototypeData
+--- @return string?
+function util.get_selected_recipe(selected)
+	if selected.base_type == "recipe" then
+		return selected.name
+	end
+
+	local item = util.get_selected_item(selected)
+	if not item then
+		return
+	end
+
+	local recipes = game.get_filtered_recipe_prototypes({
+		{ filter = "has-product-item", elem_filters = { { filter = "name", name = item } } },
+	})
+	-- XXX: next() doesn't work on LuaCustomTable
+	for name in pairs(recipes) do
+		return name
+	end
+end
+
+--- @param player LuaPlayer
 --- @param item string
 --- @return boolean success
 function util.set_cursor(player, item)
