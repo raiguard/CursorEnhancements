@@ -1,7 +1,12 @@
 ---------------------------------------------------------------------------------------------------
-Version: 1.2.4
+Version: 2.0.0
 Date: ????
+  Features:
+    - Added quick-craft hotkey (control + Q)
+    - Quick-scrolling now scrolls between item subgroups instead of upgrades/downgrades
   Changes:
+    - Rewrote the mod from scratch
+    - Removed scrolling override settings and cheat-mode settings
 ---------------------------------------------------------------------------------------------------
 Version: 1.2.3
 Date: 2021-12-06
