@@ -2,18 +2,6 @@
 local util = {}
 
 --- @param player LuaPlayer
---- @return boolean
-function util.is_cheating(player)
-	if
-		player.cheat_mode
-		and not (player.controller_type == defines.controllers.god and script.active_mods["space-exploration"])
-	then
-		return true
-	end
-	return player.controller_type == defines.controllers.editor
-end
-
---- @param player LuaPlayer
 --- @return string?
 function util.get_cursor_item(player)
 	local cursor_stack = player.cursor_stack
@@ -35,7 +23,7 @@ function util.get_selected_item(selected)
 		return selected.name
 	elseif type == "entity" then
 		local entity = game.entity_prototypes[selected.name]
-		local item = entity.items_to_place_this[1]
+		local item = (entity.items_to_place_this or {})[1]
 		if item then
 			return item.name
 		end
@@ -70,6 +58,18 @@ function util.get_selected_recipe(selected)
 	for name in pairs(recipes) do
 		return name
 	end
+end
+
+--- @param player LuaPlayer
+--- @return boolean
+function util.is_cheating(player)
+	if
+		player.cheat_mode
+		and not (player.controller_type == defines.controllers.god and script.active_mods["space-exploration"])
+	then
+		return true
+	end
+	return player.controller_type == defines.controllers.editor
 end
 
 --- @param player LuaPlayer
