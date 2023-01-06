@@ -9,9 +9,9 @@ local function build_subgroups()
 	for subgroup_name in pairs(game.item_subgroup_prototypes) do
 		local subgroup = {}
 		local prototypes = game.get_filtered_item_prototypes({ { filter = "subgroup", subgroup = subgroup_name } })
-		for name in pairs(prototypes) do
-			-- For some stupid reason, dummy-steel-axe is still here!
-			if name ~= "dummy-steel-axe" then
+		for name, item in pairs(prototypes) do
+			-- Ignore dummy-steel-axe and spawnable items
+			if name ~= "dummy-steel-axe" and not item.has_flag("spawnable") then
 				subgroup[#subgroup + 1] = name
 			end
 		end
@@ -38,6 +38,9 @@ local function scroll_item(e, delta)
 	end
 	local subgroup = global.subgroups[subgroup_name]
 	local index = table.find(subgroup, item)
+	if not index then
+		return
+	end
 	local new_item = subgroup[index + delta]
 	if not new_item then
 		return
