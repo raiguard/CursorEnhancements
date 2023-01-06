@@ -1,7 +1,11 @@
 local util = require("__CursorEnhancements__/util")
 
---- @param e EventData.on_player_cursor_stack_changed
-local function on_player_cursor_stack_changed(e)
+--- @class BuiltItemData
+--- @field item string
+--- @field tick uint
+
+--- @param e EventData.on_built_entity
+local function on_built_entity(e)
 	local player = game.get_player(e.player_index)
 	if not player then
 		return
@@ -16,6 +20,9 @@ local function on_player_cursor_stack_changed(e)
 		return
 	end
 	global.built_item[e.player_index] = nil
+	if built_item.tick ~= game.tick then
+		return
+	end
 
 	-- Don't do anything if the cursor stack is not empty
 	local cursor_stack = player.cursor_stack
@@ -23,7 +30,7 @@ local function on_player_cursor_stack_changed(e)
 		return
 	end
 
-	util.set_cursor(player, built_item)
+	util.set_cursor(player, built_item.item)
 end
 
 --- @param e EventData.on_pre_build
@@ -42,7 +49,7 @@ local function on_pre_build(e)
 		return
 	end
 
-	global.built_item[e.player_index] = cursor_stack.name
+	global.built_item[e.player_index] = { item = cursor_stack.name, tick = game.tick }
 end
 
 --- @param e EventData.on_player_main_inventory_changed
@@ -76,12 +83,16 @@ end
 local auto_ghost_cursor = {}
 
 auto_ghost_cursor.on_init = function()
-	--- @type table<uint, string?>
+	--- @type table<uint, BuiltItemData?>
+	global.built_item = {}
+end
+
+auto_ghost_cursor.on_configuration_changed = function()
 	global.built_item = {}
 end
 
 auto_ghost_cursor.events = {
-	[defines.events.on_player_cursor_stack_changed] = on_player_cursor_stack_changed,
+	[defines.events.on_built_entity] = on_built_entity,
 	[defines.events.on_player_main_inventory_changed] = on_player_main_inventory_changed,
 	[defines.events.on_pre_build] = on_pre_build,
 }
