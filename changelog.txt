@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 2.0.1
-Date: ????
+Date: 2023-01-06
   Bugfixes:
     - Fixed that the cursor would be overwritten with an empty blueprint after pasting a blueprint
     - Subgroup scrolling now ignores spawnable items (blueprints, selection tools, etc)
