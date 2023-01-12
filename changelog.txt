@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 2.0.2
-Date: ????
+Date: 2023-01-11
   Bugfixes:
     - Fixed quick-craft not working on entity ghosts
     - Fixed that development-only files were included in mod releases
