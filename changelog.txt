@@ -2,6 +2,7 @@
 Version: 2.0.2
 Date: ????
   Bugfixes:
+    - Fixed quick-craft not working on entity ghosts
     - Fixed that development-only files were included in mod releases
     - Fixed that subgroup scrolling included hidden items
 ---------------------------------------------------------------------------------------------------

@@ -21,6 +21,15 @@ local function on_quick_craft(e)
 		return
 	end
 
+	if selected.base_type == "entity" and selected.name == "entity-ghost" then
+		-- Get ghost entity name
+		local real_selected = player.selected
+		if not real_selected or real_selected.name ~= "entity-ghost" then
+			return
+		end
+		selected.name = real_selected.ghost_name
+	end
+
 	local recipe = util.get_selected_recipe(selected)
 	if not recipe then
 		return
