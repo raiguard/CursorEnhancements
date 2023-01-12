@@ -3,6 +3,7 @@ Version: 2.0.2
 Date: ????
   Bugfixes:
     - Fixed that development-only files were included in mod releases
+    - Fixed that subgroup scrolling included hidden items
 ---------------------------------------------------------------------------------------------------
 Version: 2.0.1
 Date: 2023-01-06
