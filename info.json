@@ -7,9 +7,13 @@
   "contact": "https://github.com/raiguard/CursorEnhancements",
   "homepage": "https://github.com/raiguard/CursorEnhancements",
   "factorio_version": "1.1",
-  "dependencies": [
-    "base >= 1.1.74",
-    "flib >= 0.12.0",
-    "(?) space-exploration"
-  ]
+  "dependencies": [ "base >= 1.1.74", "flib >= 0.12.0", "(?) space-exploration" ],
+  "package": {
+    "git_publish_branch": "master",
+    "ignore": [ "crowdin.yml", "imgui.ini", "screenshots/*", "stylua.toml" ],
+    "scripts": {
+      "prepublish": "factorio-crowdin-sync"
+    },
+    "sync_portal_details": true
+  }
 }
