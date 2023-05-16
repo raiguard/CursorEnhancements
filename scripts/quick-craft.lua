@@ -1,4 +1,4 @@
-local util = require("__CursorEnhancements__/util")
+local util = require("__CursorEnhancements__/scripts/util")
 
 local crafting_controllers = {
   [defines.controllers.character] = true,

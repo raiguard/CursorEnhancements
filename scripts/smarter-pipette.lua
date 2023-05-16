@@ -1,6 +1,6 @@
 local bounding_box = require("__flib__/bounding-box")
 
-local util = require("__CursorEnhancements__/util")
+local util = require("__CursorEnhancements__/scripts/util")
 
 --- @param e EventData.CustomInputEvent
 local function on_smart_pipette(e)
