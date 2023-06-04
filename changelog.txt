@@ -6,6 +6,7 @@ Date: ????
 Version: 2.1.0
 Date: 2023-06-04
   Features:
+    - Added a setting to change the quick-craft amount (#19)
     - Using the pipette on a water tile will give an offshore pump (#18)
   Changes:
     - Quick-craft count is scaled by the number of products in the recipe (#17)
