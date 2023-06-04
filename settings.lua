@@ -7,7 +7,7 @@ data:extend({
   },
   {
     type = "int-setting",
-    name = "quick-craft-count",
+    name = "cen-quick-craft-count",
     setting_type = "runtime-per-user",
     minimum_value = 1,
     maximum_value = 200,

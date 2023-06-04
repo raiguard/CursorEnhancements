@@ -35,7 +35,7 @@ local function on_quick_craft(e)
     return
   end
 
-  local craft_count = player.mod_settings["quick-craft-count"].value
+  local craft_count = player.mod_settings["cen-quick-craft-count"].value --[[@as uint]]
   player.begin_crafting({ recipe = recipe, count = craft_count })
 end
 
