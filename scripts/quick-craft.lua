@@ -35,8 +35,13 @@ local function on_quick_craft(e)
     return
   end
 
-  local craft_count = player.mod_settings["cen-quick-craft-count"].value --[[@as uint]]
-  player.begin_crafting({ recipe = recipe, count = craft_count })
+  local main_product = recipe.main_product or recipe.products[1]
+  if not main_product then
+    return
+  end
+  local craft_count_setting = player.mod_settings["cen-quick-craft-count"].value --[[@as uint]]
+  local craft_count = math.ceil(craft_count_setting / main_product.amount) --[[@as uint]]
+  player.begin_crafting({ recipe = recipe.name, count = craft_count })
 end
 
 local quick_craft = {}
