@@ -1,6 +1,8 @@
 ---------------------------------------------------------------------------------------------------
 Version: 2.1.0
 Date: ????
+  Features:
+    - Using the pipette on a water tile will give an offshore pump (#18)
   Changes:
     - Quick-craft count is scaled by the number of products in the recipe (#17)
     - Quick-craft will consider all possible recipes instead of just the first one (#17)

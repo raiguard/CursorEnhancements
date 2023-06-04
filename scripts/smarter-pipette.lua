@@ -2,6 +2,37 @@ local bounding_box = require("__flib__/bounding-box")
 
 local util = require("__CursorEnhancements__/scripts/util")
 
+--- @param surface LuaSurface
+--- @param cursor_position MapPosition
+--- @return string?
+local function get_tile_item(surface, cursor_position)
+  -- Get tile
+  local tile_area = bounding_box.from_position(cursor_position, true)
+  local tile = surface.find_tiles_filtered({ area = tile_area })[1]
+  if not tile or not tile.valid then
+    return
+  end
+
+  --- @type LuaEntityPrototype|LuaTilePrototype
+  local prototype = tile.prototype
+  if prototype.collision_mask["water-tile"] then
+    -- XXX: LuaCustomTable doesn't support next()
+    for _, entity in pairs(game.get_filtered_entity_prototypes({ { filter = "type", type = "offshore-pump" } })) do
+      prototype = entity
+      break
+    end
+  end
+
+  local items_to_place_this = prototype.items_to_place_this
+  if not items_to_place_this then
+    return
+  end
+  local item_to_place = items_to_place_this[1]
+  if item_to_place then
+    return item_to_place.name
+  end
+end
+
 --- @param e EventData.CustomInputEvent
 local function on_smart_pipette(e)
   local player = game.get_player(e.player_index)
@@ -15,24 +46,7 @@ local function on_smart_pipette(e)
     return
   end
 
-  local item = util.get_selected_item(e.selected_prototype)
-  if not item then
-    -- Get tile
-    local tile_area = bounding_box.from_position(e.cursor_position, true)
-    local tile = player.surface.find_tiles_filtered({ area = tile_area })[1]
-    if not tile or not tile.valid then
-      return
-    end
-
-    local items_to_place_this = tile.prototype.items_to_place_this
-    if not items_to_place_this then
-      return
-    end
-    local item_to_place = items_to_place_this[1]
-    if item_to_place then
-      item = item_to_place.name
-    end
-  end
+  local item = util.get_selected_item(e.selected_prototype) or get_tile_item(player.surface, e.cursor_position)
   if not item then
     return
   end
