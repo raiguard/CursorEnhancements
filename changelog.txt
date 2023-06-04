@@ -3,6 +3,7 @@ Version: 2.0.4
 Date: ????
   Changes:
     - Quick-craft count is scaled by the number of products in the recipe (#17)
+    - Quick-craft will consider all possible recipes instead of just the first one (#17)
 ---------------------------------------------------------------------------------------------------
 Version: 2.0.3
 Date: 2023-05-16

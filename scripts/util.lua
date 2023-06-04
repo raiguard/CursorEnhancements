@@ -37,13 +37,13 @@ function util.get_selected_item(selected)
 end
 
 --- @param selected SelectedPrototypeData?
---- @return LuaRecipePrototype?
-function util.get_selected_recipe(selected)
+--- @return LuaCustomTable<string, LuaRecipePrototype>?
+function util.get_selected_recipes(selected)
   if not selected then
     return
   end
   if selected.base_type == "recipe" then
-    return game.recipe_prototypes[selected.name]
+    return { game.recipe_prototypes[selected.name] }
   end
 
   local item = util.get_selected_item(selected)
@@ -51,13 +51,9 @@ function util.get_selected_recipe(selected)
     return
   end
 
-  local recipes = game.get_filtered_recipe_prototypes({
+  return game.get_filtered_recipe_prototypes({
     { filter = "has-product-item", elem_filters = { { filter = "name", name = item } } },
   })
-  -- XXX: next() doesn't work on LuaCustomTable
-  for _, recipe in pairs(recipes) do
-    return recipe
-  end
 end
 
 --- @param player LuaPlayer

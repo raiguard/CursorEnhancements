@@ -30,18 +30,29 @@ local function on_quick_craft(e)
     selected.name = real_selected.ghost_name
   end
 
-  local recipe = util.get_selected_recipe(selected)
-  if not recipe then
+  local recipes = util.get_selected_recipes(selected)
+  if not recipes then
     return
   end
 
-  local main_product = recipe.main_product or recipe.products[1]
-  if not main_product then
-    return
+  for _, recipe in pairs(recipes) do
+    local craftable_count = player.cheat_mode and math.huge or player.get_craftable_count(recipe.name) --[[@as uint]]
+    if craftable_count == 0 then
+      goto continue
+    end
+    local main_product = recipe.main_product or recipe.products[1]
+    if not main_product then
+      goto continue
+    end
+    local craft_count_setting = player.mod_settings["cen-quick-craft-count"].value --[[@as uint]]
+    local craft_count = math.min(craftable_count, math.ceil(craft_count_setting / main_product.amount) --[[@as uint]])
+    player.begin_crafting({ recipe = recipe.name, count = craft_count })
+    -- Language server and formatter don't like a label after break...
+    do
+      break
+    end
+    ::continue::
   end
-  local craft_count_setting = player.mod_settings["cen-quick-craft-count"].value --[[@as uint]]
-  local craft_count = math.ceil(craft_count_setting / main_product.amount) --[[@as uint]]
-  player.begin_crafting({ recipe = recipe.name, count = craft_count })
 end
 
 local quick_craft = {}
