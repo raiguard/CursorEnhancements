@@ -10,7 +10,7 @@ local function build_subgroups()
     local subgroup = {}
     local prototypes = game.get_filtered_item_prototypes({ { filter = "subgroup", subgroup = subgroup_name } })
     for name, item in pairs(prototypes) do
-      if name ~= "dummy-steel-axe" and not item.has_flag("spawnable") and not item.has_flag("hidden") then
+      if name ~= "dummy-steel-axe" and not item.has_flag("spawnable") and not item.hidden then
         subgroup[#subgroup + 1] = name
       end
     end

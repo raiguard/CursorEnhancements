@@ -20,11 +20,4 @@ data:extend({
     name = "cen-scroll-previous",
     key_sequence = "SHIFT + mouse-wheel-down",
   },
-  {
-    type = "custom-input",
-    name = "cen-linked-smart-pipette",
-    key_sequence = "",
-    linked_game_control = "smart-pipette",
-    include_selected_prototype = true,
-  },
 })

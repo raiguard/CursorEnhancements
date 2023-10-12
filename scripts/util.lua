@@ -72,6 +72,10 @@ end
 --- @param item string
 --- @return boolean success
 function util.set_cursor(player, item)
+  if player.controller_type == defines.controllers.remote then
+    player.cursor_ghost = item
+    return true
+  end
   local inventory = player.get_main_inventory()
   if not inventory then
     return false
