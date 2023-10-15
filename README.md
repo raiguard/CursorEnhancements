@@ -10,12 +10,6 @@ Enhances the cursor with many useful capabilities and features.
 
 [Download on the Mod Portal.](https://mods.factorio.com/mod/CursorEnhancements)
 
-## Contributing
-
-[Report bugs or ask questions](https://lists.sr.ht/~raiguard/factorio-mods-discuss)
-
-[Submit patches](https://lists.sr.ht/~raiguard/factorio-mods-devel)
-
 ## Features
 
 *Automatic ghost cursor*: When the item in your cursor runs out, replace it
