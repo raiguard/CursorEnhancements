@@ -44,7 +44,9 @@ local function scroll_item(e, delta)
   if not new_item then
     return
   end
-  util.set_cursor(player, new_item)
+  if util.set_cursor(player, new_item) then
+    player.create_local_flying_text({ text = game.item_prototypes[new_item].localised_name, create_at_cursor = true })
+  end
 end
 
 local scroll_subgroup = {}
