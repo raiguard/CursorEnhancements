@@ -1,8 +1,10 @@
-local handler = require("__core__/lualib/event_handler")
+local handler = require("__core__.lualib.event_handler")
 
-handler.add_lib(require("__CursorEnhancements__/scripts/auto-ghost-cursor"))
-handler.add_lib(require("__CursorEnhancements__/scripts/migrations"))
-handler.add_lib(require("__CursorEnhancements__/scripts/quick-craft"))
-handler.add_lib(require("__CursorEnhancements__/scripts/recall-last-item"))
-handler.add_lib(require("__CursorEnhancements__/scripts/scroll-subgroup"))
-handler.add_lib(require("__CursorEnhancements__/scripts/smarter-pipette"))
+handler.add_libraries({
+  require("scripts.auto-ghost-cursor"),
+  require("scripts.migrations"),
+  require("scripts.quick-craft"),
+  require("scripts.recall-last-item"),
+  require("scripts.scroll-subgroup"),
+  require("scripts.smarter-pipette"),
+})

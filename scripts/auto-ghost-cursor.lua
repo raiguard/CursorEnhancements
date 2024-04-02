@@ -1,4 +1,4 @@
-local util = require("__CursorEnhancements__/scripts/util")
+local util = require("scripts.util")
 
 --- @class BuiltItemData
 --- @field item string

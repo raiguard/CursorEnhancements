@@ -1,6 +1,6 @@
-local bounding_box = require("__flib__/bounding-box")
+local bounding_box = require("__flib__.bounding-box")
 
-local util = require("__CursorEnhancements__/scripts/util")
+local util = require("scripts.util")
 
 --- @param surface LuaSurface
 --- @param cursor_position MapPosition

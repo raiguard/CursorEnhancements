@@ -1,4 +1,4 @@
-local util = require("__CursorEnhancements__/scripts/util")
+local util = require("scripts.util")
 
 --- @param e EventData.CustomInputEvent
 local function on_recall_last_item(e)
