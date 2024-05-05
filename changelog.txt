@@ -2,6 +2,7 @@
 Version: 2.1.1
 Date: ????
   Bugfixes:
+    - Fixed that using smarter pipette with Brave New World would spawn free items. (#24)
     - Fixed a crash during quick-crafting when a recipe has a product with no result count. (#25)
 ---------------------------------------------------------------------------------------------------
 Version: 2.1.0

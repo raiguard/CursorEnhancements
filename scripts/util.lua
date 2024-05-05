@@ -59,6 +59,9 @@ end
 --- @param player LuaPlayer
 --- @return boolean
 function util.is_cheating(player)
+  if script.active_mods["brave-new-world"] then
+    return false
+  end
   if
     player.cheat_mode
     and not (player.controller_type == defines.controllers.god and script.active_mods["space-exploration"])
