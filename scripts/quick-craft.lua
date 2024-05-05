@@ -45,7 +45,11 @@ local function on_quick_craft(e)
       goto continue
     end
     local craft_count_setting = player.mod_settings["cen-quick-craft-count"].value --[[@as uint]]
-    local craft_count = math.min(craftable_count, math.ceil(craft_count_setting / main_product.amount) --[[@as uint]])
+    local main_product_amount = main_product.amount
+    if not main_product_amount then
+      goto continue
+    end
+    local craft_count = math.min(craftable_count, math.ceil(craft_count_setting / main_product_amount) --[[@as uint]])
     player.begin_crafting({ recipe = recipe.name, count = craft_count })
     -- Language server and formatter don't like a label after break...
     do
