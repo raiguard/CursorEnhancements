@@ -13,11 +13,11 @@ data:extend({
   {
     type = "custom-input",
     name = "cen-scroll-next",
-    key_sequence = "SHIFT + mouse-wheel-up",
+    key_sequence = "ALT + mouse-wheel-up",
   },
   {
     type = "custom-input",
     name = "cen-scroll-previous",
-    key_sequence = "SHIFT + mouse-wheel-down",
+    key_sequence = "ALT + mouse-wheel-down",
   },
 })
