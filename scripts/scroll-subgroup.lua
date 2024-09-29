@@ -2,22 +2,17 @@ local table = require("__flib__/table")
 
 local util = require("__CursorEnhancements__/scripts/util")
 
-local function build_subgroups()
-  --- @type table<string, string[]>
-  local subgroups = {}
-
-  for subgroup_name in pairs(game.item_subgroup_prototypes) do
-    local subgroup = {}
-    local prototypes = game.get_filtered_item_prototypes({ { filter = "subgroup", subgroup = subgroup_name } })
-    for name, item in pairs(prototypes) do
-      if name ~= "dummy-steel-axe" and not item.has_flag("spawnable") and not item.hidden then
-        subgroup[#subgroup + 1] = name
-      end
+--- @type table<string, string[]>
+local subgroups = {}
+for subgroup_name in pairs(prototypes.item_subgroup) do
+  local subgroup = {}
+  local prototypes = prototypes.get_item_filtered({ { filter = "subgroup", subgroup = subgroup_name } })
+  for name, item in pairs(prototypes) do
+    if name ~= "dummy-steel-axe" and not item.has_flag("spawnable") and not item.hidden then
+      subgroup[#subgroup + 1] = name
     end
-    subgroups[subgroup_name] = subgroup
   end
-
-  global.subgroups = subgroups
+  subgroups[subgroup_name] = subgroup
 end
 
 --- @param e EventData.CustomInputEvent
@@ -31,11 +26,11 @@ local function scroll_item(e, delta)
   if not item then
     return
   end
-  local subgroup_name = game.item_prototypes[item].subgroup.name
+  local subgroup_name = prototypes.item[item].subgroup.name
   if not subgroup_name then
     return
   end
-  local subgroup = global.subgroups[subgroup_name]
+  local subgroup = subgroups[subgroup_name]
   local index = table.find(subgroup, item)
   if not index then
     return
@@ -45,14 +40,11 @@ local function scroll_item(e, delta)
     return
   end
   if util.set_cursor(player, new_item) then
-    player.create_local_flying_text({ text = game.item_prototypes[new_item].localised_name, create_at_cursor = true })
+    player.create_local_flying_text({ text = prototypes.item[new_item].localised_name, create_at_cursor = true })
   end
 end
 
 local scroll_subgroup = {}
-
-scroll_subgroup.on_init = build_subgroups
-scroll_subgroup.on_configuration_changed = build_subgroups
 
 scroll_subgroup.events = {
   --- @param e EventData.CustomInputEvent

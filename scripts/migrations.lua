@@ -2,8 +2,8 @@ local migration = require("__flib__/migration")
 
 local migrations = {
   ["2.0.0"] = function()
-    global.built_item = {}
-    global.last_item = {}
+    storage.built_item = {}
+    storage.last_item = {}
   end,
 }
 

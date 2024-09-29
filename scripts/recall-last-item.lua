@@ -7,7 +7,7 @@ local function on_recall_last_item(e)
     return
   end
 
-  local last_item = global.last_item[e.player_index]
+  local last_item = storage.last_item[e.player_index]
   if not last_item then
     return
   end
@@ -27,14 +27,14 @@ local function on_player_cursor_stack_changed(e)
     return
   end
 
-  global.last_item[e.player_index] = item
+  storage.last_item[e.player_index] = item
 end
 
 local recall_last_item = {}
 
 recall_last_item.on_init = function()
   --- @type table<uint, string?>
-  global.last_item = {}
+  storage.last_item = {}
 end
 
 recall_last_item.events = {
