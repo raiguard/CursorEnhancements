@@ -1,6 +1,6 @@
-local table = require("__flib__/table")
+local table = require("__flib__.table")
 
-local util = require("__CursorEnhancements__/scripts/util")
+local util = require("scripts.util")
 
 --- @type table<string, string[]>
 local subgroups = {}
