@@ -2,6 +2,9 @@
 Version: 2.2.0
 Date: ????
   Changes:
+    - Updated to Factorio 2.0.
+    - Changed default item group scroll hotkeys to alt + scroll.
+    - Removed smart pipette - it is now built-in to the game!
 ---------------------------------------------------------------------------------------------------
 Version: 2.1.0
 Date: 2023-06-04
