@@ -1,15 +1,15 @@
-local table = require("__flib__.table")
+local flib_table = require("__flib__.table")
 
 local util = require("scripts.util")
 
---- @type table<string, string[]>
+--- @type table<string, LuaItemPrototype[]>
 local subgroups = {}
 for subgroup_name in pairs(prototypes.item_subgroup) do
   local subgroup = {}
   local prototypes = prototypes.get_item_filtered({ { filter = "subgroup", subgroup = subgroup_name } })
-  for name, item in pairs(prototypes) do
-    if name ~= "dummy-steel-axe" and not item.has_flag("spawnable") and not item.hidden then
-      subgroup[#subgroup + 1] = name
+  for _, item in pairs(prototypes) do
+    if not item.has_flag("spawnable") and not item.hidden then
+      subgroup[#subgroup + 1] = item
     end
   end
   subgroups[subgroup_name] = subgroup
@@ -26,12 +26,12 @@ local function scroll_item(e, delta)
   if not item then
     return
   end
-  local subgroup_name = prototypes.item[item].subgroup.name
+  local subgroup_name = item.name.subgroup.name
   if not subgroup_name then
     return
   end
   local subgroup = subgroups[subgroup_name]
-  local index = table.find(subgroup, item)
+  local index = flib_table.find(subgroup, item.name)
   if not index then
     return
   end
@@ -39,9 +39,15 @@ local function scroll_item(e, delta)
   if not new_item then
     return
   end
-  if util.set_cursor(player, new_item) then
-    player.create_local_flying_text({ text = prototypes.item[new_item].localised_name, create_at_cursor = true })
+  if not util.set_cursor(player, { name = new_item, quality = item.quality }) then
+    return
   end
+  --- @type LocalisedString
+  local text = { "", "[img=item/" .. new_item.name .. "]", new_item.localised_name }
+  if item.quality ~= prototypes.quality.normal then
+    text[#text + 1] = { "", " (", item.quality.localised_name, ")" }
+  end
+  player.create_local_flying_text({ text = text, create_at_cursor = true })
 end
 
 local scroll_subgroup = {}

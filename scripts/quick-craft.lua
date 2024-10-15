@@ -16,6 +16,8 @@ local function on_quick_craft(e)
     return
   end
 
+  -- TODO: We can't craft with quality because this doesn't return the selected quality.
+  -- Add this to the API.
   local selected = e.selected_prototype
   if not selected then
     return

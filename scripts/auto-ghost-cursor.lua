@@ -1,7 +1,7 @@
 local util = require("scripts.util")
 
 --- @class BuiltItemData
---- @field item string
+--- @field item ItemWithQualityID
 --- @field tick uint
 
 --- @param e EventData.on_built_entity
@@ -49,7 +49,8 @@ local function on_pre_build(e)
     return
   end
 
-  storage.built_item[e.player_index] = { item = cursor_stack.name, tick = game.tick }
+  storage.built_item[e.player_index] =
+    { item = { name = cursor_stack.prototype, quality = cursor_stack.quality }, tick = game.tick }
 end
 
 --- @param e EventData.on_player_main_inventory_changed
@@ -73,11 +74,11 @@ local function on_player_main_inventory_changed(e)
     return
   end
 
-  local count = main_inventory.get_item_count(cursor_ghost.name)
+  local count = main_inventory.get_item_count(cursor_ghost)
   if count == 0 then
     return
   end
-  util.set_cursor(player, cursor_ghost.name)
+  util.set_cursor(player, cursor_ghost)
 end
 
 local auto_ghost_cursor = {}

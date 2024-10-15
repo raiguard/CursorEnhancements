@@ -33,7 +33,7 @@ end
 local recall_last_item = {}
 
 recall_last_item.on_init = function()
-  --- @type table<uint, string?>
+  --- @type table<uint, ItemWithQualityID?>
   storage.last_item = {}
 end
 

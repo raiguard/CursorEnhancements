@@ -2,14 +2,16 @@
 local util = {}
 
 --- @param player LuaPlayer
---- @return string?
+--- @return ItemWithQualityID?
 function util.get_cursor_item(player)
-  local cursor_stack = player.cursor_stack
-  if not cursor_stack or not cursor_stack.valid_for_read then
-    cursor_stack = {}
+  local cursor_ghost = player.cursor_ghost
+  if cursor_ghost then
+    return cursor_ghost
   end
-  local cursor_ghost = player.cursor_ghost or {}
-  return cursor_stack.name or cursor_ghost.name
+  local cursor_stack = player.cursor_stack
+  if cursor_stack and cursor_stack.valid_for_read then
+    return { name = cursor_stack.prototype, quality = cursor_stack.quality }
+  end
 end
 
 --- @param selected SelectedPrototypeData?
@@ -72,7 +74,7 @@ function util.is_cheating(player)
 end
 
 --- @param player LuaPlayer
---- @param item string
+--- @param item ItemWithQualityID
 --- @return boolean success
 function util.set_cursor(player, item)
   if player.controller_type == defines.controllers.remote then
@@ -89,9 +91,9 @@ function util.set_cursor(player, item)
   end
   local inventory_stack, stack_index = inventory.find_item_stack(item)
   if not inventory_stack or not stack_index then
-    local stack_size = prototypes.item[item].stack_size
-    if util.is_cheating(player) and inventory.can_insert({ name = item, count = stack_size }) then
-      inventory.insert({ name = item, count = stack_size })
+    local spec = { name = item.name.name, quality = item.quality, count = item.name.stack_size }
+    if util.is_cheating(player) and inventory.can_insert(spec) then
+      inventory.insert(spec)
       inventory_stack, stack_index = inventory.find_item_stack(item)
     else
       player.cursor_ghost = item
