@@ -5,6 +5,9 @@ local migrations = {
     storage.built_item = {}
     storage.last_item = {}
   end,
+  ["2.2.0"] = function()
+    storage.subgroups = nil
+  end,
 }
 
 local function on_configuration_changed(e)
