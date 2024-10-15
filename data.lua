@@ -13,18 +13,11 @@ data:extend({
   {
     type = "custom-input",
     name = "cen-scroll-next",
-    key_sequence = "SHIFT + mouse-wheel-up",
+    key_sequence = "ALT + mouse-wheel-up",
   },
   {
     type = "custom-input",
     name = "cen-scroll-previous",
-    key_sequence = "SHIFT + mouse-wheel-down",
-  },
-  {
-    type = "custom-input",
-    name = "cen-linked-smart-pipette",
-    key_sequence = "",
-    linked_game_control = "smart-pipette",
-    include_selected_prototype = true,
+    key_sequence = "ALT + mouse-wheel-down",
   },
 })

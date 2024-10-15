@@ -22,13 +22,13 @@ function util.get_selected_item(selected)
   if type == "item" then
     return selected.name
   elseif type == "entity" then
-    local entity = game.entity_prototypes[selected.name]
+    local entity = prototypes.entity[selected.name]
     local item = (entity.items_to_place_this or {})[1]
     if item then
       return item.name
     end
   elseif type == "recipe" then
-    local recipe = game.recipe_prototypes[selected.name]
+    local recipe = prototypes.recipe[selected.name]
     local product = recipe.products[1]
     if product and product.type == "item" then
       return product.name
@@ -43,7 +43,7 @@ function util.get_selected_recipes(selected)
     return
   end
   if selected.base_type == "recipe" then
-    return { game.recipe_prototypes[selected.name] }
+    return { prototypes.recipe[selected.name] }
   end
 
   local item = util.get_selected_item(selected)
@@ -51,7 +51,7 @@ function util.get_selected_recipes(selected)
     return
   end
 
-  return game.get_filtered_recipe_prototypes({
+  return prototypes.get_recipe_filtered({
     { filter = "has-product-item", elem_filters = { { filter = "name", name = item } } },
   })
 end
@@ -75,6 +75,10 @@ end
 --- @param item string
 --- @return boolean success
 function util.set_cursor(player, item)
+  if player.controller_type == defines.controllers.remote then
+    player.cursor_ghost = item
+    return true
+  end
   local inventory = player.get_main_inventory()
   if not inventory then
     return false
@@ -85,7 +89,7 @@ function util.set_cursor(player, item)
   end
   local inventory_stack, stack_index = inventory.find_item_stack(item)
   if not inventory_stack or not stack_index then
-    local stack_size = game.item_prototypes[item].stack_size
+    local stack_size = prototypes.item[item].stack_size
     if util.is_cheating(player) and inventory.can_insert({ name = item, count = stack_size }) then
       inventory.insert({ name = item, count = stack_size })
       inventory_stack, stack_index = inventory.find_item_stack(item)

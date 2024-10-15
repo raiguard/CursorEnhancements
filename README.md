@@ -10,12 +10,6 @@ Enhances the cursor with many useful capabilities and features.
 
 [Download on the Mod Portal.](https://mods.factorio.com/mod/CursorEnhancements)
 
-## Contributing
-
-[Report bugs or ask questions](https://lists.sr.ht/~raiguard/factorio-mods-discuss)
-
-[Submit patches](https://lists.sr.ht/~raiguard/factorio-mods-devel)
-
 ## Features
 
 *Automatic ghost cursor*: When the item in your cursor runs out, replace it
@@ -28,20 +22,10 @@ craft up to five of that object's recipe.
 *Recall last item*: Use `shift + Q` to recall the last item that was in your
 cursor.
 
-*Scroll item subgroup*: Use `shift + mousewhell up` and `shift + mousewheel
+*Scroll item subgroup*: Use `alt + mousewhell up` and `alt + mousewheel
 down` to switch between different items in the same subgroup.
 
 *Smarter pipette*: Use the pipette key (default `Q`) on any entity, tile, or
 GUI object to pick the item related to that object. For example, use the
 pipette on a recipe in the crafting menu to pick the item that that recipe
 produces.
-
-## FAQ
-
-**Q: Why does the camera zoom when I'm scrolling between items?**
-
-A: This is due to the default keybindings for zoom. Go into your controls
-settings and **unbind** zooming from `shift + mousewheel`. This will fix the
-problem.
-
-![](./screenshots/zoom.jpg)

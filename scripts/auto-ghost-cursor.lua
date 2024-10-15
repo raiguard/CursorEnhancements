@@ -15,11 +15,11 @@ local function on_built_entity(e)
     return
   end
 
-  local built_item = global.built_item[e.player_index]
+  local built_item = storage.built_item[e.player_index]
   if not built_item then
     return
   end
-  global.built_item[e.player_index] = nil
+  storage.built_item[e.player_index] = nil
   if built_item.tick ~= game.tick then
     return
   end
@@ -49,7 +49,7 @@ local function on_pre_build(e)
     return
   end
 
-  global.built_item[e.player_index] = { item = cursor_stack.name, tick = game.tick }
+  storage.built_item[e.player_index] = { item = cursor_stack.name, tick = game.tick }
 end
 
 --- @param e EventData.on_player_main_inventory_changed
@@ -84,11 +84,11 @@ local auto_ghost_cursor = {}
 
 auto_ghost_cursor.on_init = function()
   --- @type table<uint, BuiltItemData?>
-  global.built_item = {}
+  storage.built_item = {}
 end
 
 auto_ghost_cursor.on_configuration_changed = function()
-  global.built_item = {}
+  storage.built_item = {}
 end
 
 auto_ghost_cursor.events = {
