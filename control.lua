@@ -6,5 +6,4 @@ handler.add_libraries({
   require("scripts.quick-craft"),
   require("scripts.recall-last-item"),
   require("scripts.scroll-subgroup"),
-  require("scripts.smarter-pipette"),
 })
