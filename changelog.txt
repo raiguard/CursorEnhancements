@@ -1,7 +1,8 @@
 ---------------------------------------------------------------------------------------------------
 Version: 2.2.1
 Date: ????
-  Changes:
+  Bugfixes:
+    - Quick-craft will always craft the item in the cursor instead of using the selected prototype. (#28)
 ---------------------------------------------------------------------------------------------------
 Version: 2.2.0
 Date: 2024-10-15
