@@ -2,6 +2,7 @@
 Version: 2.2.2
 Date: ????
   Changes:
+    - Changed default item group scroll hotkeys to shift + alt + scroll to fix conflict with quality cycling.
 ---------------------------------------------------------------------------------------------------
 Version: 2.2.1
 Date: 2024-10-29
