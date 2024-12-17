@@ -16,19 +16,47 @@ local function on_quick_craft(e)
     return
   end
 
-  local cursor_stack = player.cursor_stack
-  --- @type ItemIDAndQualityIDPair?
-  local item_id = player.cursor_ghost --[[@as ItemIDAndQualityIDPair?]]
-  if not item_id and cursor_stack and cursor_stack.valid_for_read then
-    item_id = { name = cursor_stack.prototype, quality = cursor_stack.quality }
-  end
-  if not item_id then
+  local selected = e.selected_prototype
+  if not selected then
     return
   end
 
-  local recipes = prototypes.get_recipe_filtered({
-    { filter = "has-product-item", elem_filters = { { filter = "name", name = item_id.name.name } } },
-  })
+  if selected.base_type == "entity" and selected.name == "entity-ghost" then
+    -- Get ghost entity name
+    local real_selected = player.selected
+    if not real_selected or real_selected.name ~= "entity-ghost" then
+      return
+    end
+    selected.name = real_selected.ghost_name
+  end
+
+  -- Prioritize items over resources
+  if selected.derived_type == "resource" then
+    local cursor_stack = player.cursor_stack
+    local cursor_ghost = player.cursor_ghost
+    if cursor_stack and cursor_stack.valid_for_read then
+      selected = {
+        base_type = "item",
+        derived_type = cursor_stack.type,
+        name = cursor_stack.name,
+        quality = cursor_stack.quality.name,
+      }
+    elseif cursor_ghost then
+      selected = {
+        base_type = "item",
+        derived_type = cursor_ghost.type,
+        name = cursor_ghost.name.name,
+        quality = cursor_ghost.quality.name,
+      }
+    end
+  end
+
+  local recipes = util.get_selected_recipes(selected)
+  if not recipes then
+    return
+  end
+
+  -- TODO: Crafting functions cannot have quality specified; Add this to the API.
   for _, recipe in pairs(recipes) do
     local craftable_count = player.cheat_mode and math.huge or player.get_craftable_count(recipe.name) --[[@as uint]]
     if craftable_count == 0 then
