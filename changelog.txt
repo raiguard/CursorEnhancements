@@ -5,6 +5,8 @@ Date: ????
     - Changed default item group scroll hotkeys to shift + alt + scroll to fix conflict with quality cycling.
     - Reverted change to quick-crafting introduced in v2.2.1. (#32)
     - If hovering a resource entity, the item in cursor will take precedence for quick-crafting. (#28)
+  Compatibility:
+    - [Just Go!] Auto-ghost-cursor is disabled for vehicles when this mod is installed. (#36)
 ---------------------------------------------------------------------------------------------------
 Version: 2.2.1
 Date: 2024-10-29

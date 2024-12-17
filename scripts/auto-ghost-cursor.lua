@@ -1,5 +1,11 @@
 local util = require("scripts.util")
 
+local vehicles = {
+  ["car"] = true,
+  ["locomotive"] = true,
+  ["spidertron"] = true,
+}
+
 --- @class BuiltItemData
 --- @field item ItemWithQualityID
 --- @field tick uint
@@ -21,6 +27,9 @@ local function on_built_entity(e)
   end
   storage.built_item[e.player_index] = nil
   if built_item.tick ~= game.tick then
+    return
+  end
+  if script.active_mods["folk-justgo"] and vehicles[e.entity.type] then
     return
   end
 
