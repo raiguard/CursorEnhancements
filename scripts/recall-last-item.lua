@@ -1,6 +1,6 @@
 local util = require("scripts.util")
 
-local MAX_HISTORY_SIZE = 10
+local max_history_size = 10
 
 --- @param e EventData.CustomInputEvent
 local function on_recall_last_item(e)
@@ -17,8 +17,8 @@ local function on_recall_last_item(e)
   end
 
   local cursor_item = util.get_cursor_item(player)
-  if cursor_item and index == 1 then
-    index = 2
+  if cursor_item and index <= 1 then
+    index = index + 1
   end
 
   local item = history[index]
@@ -27,7 +27,13 @@ local function on_recall_last_item(e)
   end
 
   util.set_cursor(player, item)
-  storage.history_index[e.player_index] = (index % #history) + 1
+
+  if (index + 1 > #history) then
+    storage.history_index[e.player_index] = 0
+  else
+    storage.history_index[e.player_index] = index + 1
+  end
+
   storage.item_update_tick[e.player_index] = e.tick
 end
 
@@ -38,16 +44,20 @@ local function on_player_cursor_stack_changed(e)
     return
   end
 
-  if (e.tick == storage.item_update_tick[e.player_index]) then
+  if e.tick == storage.item_update_tick[e.player_index] then
     return
   end
 
-  local history = storage.item_history[e.player_index] or {}
-  storage.item_history[e.player_index] = history
+  local history = storage.item_history[e.player_index]
+  if not history then
+    history = {}
+    storage.item_history[e.player_index] = history
+  end
+
   storage.history_index[e.player_index] = 1
 
   local cursor_item = util.get_cursor_item(player)
-  if not cursor_item then
+  if not cursor_item or cursor_item.name.has_flag("spawnable") then
     return
   end
 
@@ -60,7 +70,7 @@ local function on_player_cursor_stack_changed(e)
 
   table.insert(history, 1, cursor_item)
 
-  if #history > MAX_HISTORY_SIZE then
+  if #history > max_history_size then
     table.remove(history)
   end
 end
@@ -68,7 +78,7 @@ end
 local recall_last_item = {}
 
 recall_last_item.on_init = function()
-  --- @type table<uint, table<number, ItemWithQualityID>>
+  --- @type table<uint, table<number, ItemWithQualityID?>>
   storage.item_history = {}
   --- @type table<uint, number>
   storage.item_update_tick = {}
