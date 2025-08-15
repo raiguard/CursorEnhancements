@@ -28,7 +28,7 @@ local function on_recall_last_item(e)
 
   util.set_cursor(player, item)
 
-  if (index + 1 > #history) then
+  if index + 1 > #history then
     storage.history_index[e.player_index] = 0
   else
     storage.history_index[e.player_index] = index + 1
