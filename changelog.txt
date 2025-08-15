@@ -1,5 +1,5 @@
 ---------------------------------------------------------------------------------------------------
-Version: 2.2.3
+Version: 2.3.0
 Date: ????
   Features:
     - Added item recall history, which stores up to 10 items. (#45)
